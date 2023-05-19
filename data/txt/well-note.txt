@@ -1,6 +1,3 @@
-Note on Well-Log Data
-
-
 Note on Well Production Data
 NO 15/9-F-1 C - producing oil well -> Well-E1
 NO 15/9-F-11 (H) - appraisal, producing oil well -> Well-N1
