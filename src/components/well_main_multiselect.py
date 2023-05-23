@@ -26,7 +26,7 @@ def render(app: Dash, production_data: pd.DataFrame) -> html.Div:
     
     return html.Div(
         children=[
-            html.H5("Month"),
+            html.H5("Well"),
             dmc.MultiSelect(
                 className="main-multiselect",
                 id=ids.WELL_MAIN_MULTISELECT,
@@ -36,6 +36,7 @@ def render(app: Dash, production_data: pd.DataFrame) -> html.Div:
                 searchable=True,
                 clearable=True,
                 nothingFound="No options available",
+                style={'marginTop':'10px'}
             ),
             dmc.Button(
                 'Select All',
@@ -45,7 +46,7 @@ def render(app: Dash, production_data: pd.DataFrame) -> html.Div:
                 color="dark",
                 radius="5px",
                 leftIcon=DashIconify(icon='material-symbols:restart-alt', width=15),
-                style={'height':30},
+                style={'height':30, 'marginTop':'10px'},
                 n_clicks=0,
             ),
             
