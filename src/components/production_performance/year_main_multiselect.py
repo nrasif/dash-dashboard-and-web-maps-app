@@ -4,8 +4,8 @@ import dash_mantine_components as dmc
 from dash.dependencies import Input, Output
 from dash_iconify import DashIconify
 
-from ..data.loader_data import ProductionDataSchema
-from . import ids
+from ...data.loader_data import ProductionDataSchema
+from .. import ids
 
 def render(app: Dash, production_data: pd.DataFrame) -> html.Div:
     all_years: list[str] = production_data[ProductionDataSchema.YEAR].tolist()
