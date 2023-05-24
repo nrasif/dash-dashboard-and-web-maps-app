@@ -24,7 +24,7 @@ def create_layout(app: Dash, production_data: pd.DataFrame) -> html.Div:
                         # className='summary-content',
                         showLabel='Show more',
                         hideLabel='Hide',
-                        maxHeight=20,
+                        maxHeight=25,
                         # style={'marginBottom':35},
                         children=[
                             dmc.Text(
@@ -52,7 +52,7 @@ def create_layout(app: Dash, production_data: pd.DataFrame) -> html.Div:
                         value="3",
                     )
                 ],
-                style={},
+                style={"padding": 10},
             ),
         ], 
         style={},

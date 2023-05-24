@@ -5,8 +5,8 @@ from dash import Dash, html
 import dash_mantine_components as dmc
 
 from src.components.production_performance import (
-    year_main_multiselect,
-    month_main_multiselect,
+    from_date_datepicker,
+    to_date_datepicker,
     well_main_multiselect
 )
 
@@ -24,64 +24,64 @@ def create_layout(app: Dash, production_data: pd.DataFrame) -> html.Div:
                             html.Div(
                                 # className=cms.PPD_MULTISELECT,
                                 children=[
-                                    well_main_multiselect.render(app, production_data),
+                                    
+                                    html.Div(
+                                        # className=cms.PPD_MULTISELECT,
+                                        children=[
+                                            well_main_multiselect.render(app, production_data),
+                                        ],
+                                        style={'padding': 5, 'flex': 1},
+                                    ),
+                                    
+                                    html.Div(
+                                        # className=cms.PPD_MULTISELECT,
+                                        children=[
+                                            from_date_datepicker.render(app, production_data),
+                                        ],
+                                        style={'padding': 5, 'flex': 1},
+                                    ),
+                                    html.Div(
+                                        # className=cms.PPD_MULTISELECT,
+                                        children=[
+                                            to_date_datepicker.render(app, production_data),
+                                        ],
+                                        style={'padding': 5, 'flex': 1},
+                                    ), 
+                                
                                 ],
-                                style={'padding': 10, 'flex': 1},
+                                style={'display': 'grid', 'grid-template-columns': '1.5fr 0.75fr 0.75fr', 'grid-template-rows': 'auto'},
+                                
                             ),
                             
+                            # html.Div(
+                            #     # className=cms.PPD_MULTISELECT,
+                            #     children=[
+                                    
+                            #     ],
+                            #     style={'padding': 5, 'flex': 1},
+                            # ),
+                            
                             html.Div(
-                                # className="ppd-select-parameter-container",
+                                # className=cms.PPD_MULTISELECT,
                                 children=[
-                                    
-                                    html.Div(
-                                        # className=cms.PPD_MULTISELECT,
-                                        children=[
-                                            year_main_multiselect.render(app, production_data),
-                                        ],
-                                        style={'padding': 5, 'flex': 1},
-                                    ),
-                                    html.Div(
-                                        # className=cms.PPD_MULTISELECT,
-                                        children=[
-                                            month_main_multiselect.render(app, production_data),
-                                        ],
-                                        style={'padding': 5, 'flex': 1},
-                                    ),
-                                    
-                                    # html.Div(
-                                    #     className=cms.PPD_MULTISELECT,
-                                    #     children=[
-                                    #         year_main_multiselect.render(app, production_data),
-                                    #     ],
-                                    #     style={'padding': 10, 'flex': 1},
-                                    # ),
-                                    # html.Div(
-                                    #     className=cms.PPD_MULTISELECT,
-                                    #     children=[
-                                    #         month_main_multiselect.render(app, production_data),
-                                    #     ],
-                                    #     style={'padding': 10, 'flex': 1},
-                                    # ),                                    
+                                    html.H1("TESSSSSSSSSSSSSSTTtttttttttttttttttttttttttttttttttttttT")
                                 ],
-                                style={'display': 'flex', 'flex-direction': 'row', 'padding': 10, 'flex': 1},
-                            )
+                                style={'padding': 5, 'flex': 1},
+                            ),
+                            
                         ],
+                        style={},
                         
                     ),
                     
                     html.Div(
                         # className=cms.PPD_RIGHT_GRID_MAIN,
                         children=[
-                            # html.H1(
-                            #     "Test",
-                            #     # className='text-center'
-                            # ),
+                            html.H1(
+                                "Testosstesorrrrrr",
+                                # className='text-center'
+                            ),
                             
-                            dmc.DatePicker(
-                                id="date-picker",
-                                # value=datetime.now().date(),
-                                style={"width": 200},
-                            )
                             
                         ],
                         style={'display': 'flex', 'flex-direction': 'row', 'padding': 10, 'flex': 1},
