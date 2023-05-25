@@ -1,7 +1,7 @@
 from dash import Dash, html
 
 from src.components.web_layout import create_layout
-from src.data.loader_data import load_well_production_data
+from src.data.loader import load_well_production_data
 
 PRODUCTION_DATA_PATH = "./data/csv/aceh_production_data_daily_ed.csv"
 

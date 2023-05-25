@@ -10,9 +10,7 @@ from dash_iconify import DashIconify
 from ...data.loader import ProductionDataSchema
 from .. import ids
 
-def render(app: Dash, data: pd.DataFrame) -> html.Div:
-    all_date: list[str] = data[ProductionDataSchema.DATE].tolist()
-    unique_date: list[str] = sorted(set(all_date), key=str)
+def render(app: Dash, production_data: pd.DataFrame) -> html.Div:
     
     # @app.callback(
     #     Output(ids.MONTH_MAIN_MULTISELECT, "value"),
@@ -27,22 +25,13 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
     #     return sorted(set(filtered_data[ProductionDataSchema.MONTH].tolist()))
     
     return html.Div(
-        children=[
-            html.H5("To:"),
+        
+        html.H5("Slide the range:"),
+        
+        dmc.RangeSlider(
+            id=ids.DATES_RANGESLIDER,
             
-            dmc.DatePicker(
-                id=ids.TO_DATE_DATEPICKER,
-                value=data[ProductionDataSchema.DATE].max(),
-                style={'marginTop':'5px', "width": 175},
-            ),
-
-            dmc.Checkbox(
-                id=ids.ALL_DATES_AFTER_CHECKBOX,
-                label='Select the latest date',
-                value=data[ProductionDataSchema.DATE].max(),
-                color='dark',
-                style={'marginTop':'5px'}
-            ),
-            
-        ]
+        )
+        
+        
     )

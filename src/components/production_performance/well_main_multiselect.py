@@ -4,11 +4,11 @@ import dash_mantine_components as dmc
 from dash.dependencies import Input, Output
 from dash_iconify import DashIconify
 
-from ...data.loader_data import ProductionDataSchema
+from ...data.loader import ProductionDataSchema
 from .. import ids
     
-def render(app: Dash, production_data: pd.DataFrame) -> html.Div:
-    all_wells: list[str] = production_data[ProductionDataSchema.WELLBORE].tolist()
+def render(app: Dash, data: pd.DataFrame) -> html.Div:
+    all_wells: list[str] = data[ProductionDataSchema.WELLBORE].tolist()
     unique_wells: list[str] = sorted(set(all_wells))
     
     # @app.callback(

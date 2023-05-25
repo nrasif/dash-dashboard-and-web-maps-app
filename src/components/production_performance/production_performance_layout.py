@@ -10,7 +10,7 @@ from src.components.production_performance import (
     well_main_multiselect
 )
 
-def create_layout(app: Dash, production_data: pd.DataFrame) -> html.Div:
+def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
     return html.Div(
 
             html.Div(
@@ -28,7 +28,7 @@ def create_layout(app: Dash, production_data: pd.DataFrame) -> html.Div:
                                     html.Div(
                                         # className=cms.PPD_MULTISELECT,
                                         children=[
-                                            well_main_multiselect.render(app, production_data),
+                                            well_main_multiselect.render(app, data),
                                         ],
                                         style={'padding': 5, 'flex': 1},
                                     ),
@@ -36,14 +36,14 @@ def create_layout(app: Dash, production_data: pd.DataFrame) -> html.Div:
                                     html.Div(
                                         # className=cms.PPD_MULTISELECT,
                                         children=[
-                                            from_date_datepicker.render(app, production_data),
+                                            from_date_datepicker.render(app, data),
                                         ],
                                         style={'padding': 5, 'flex': 1},
                                     ),
                                     html.Div(
                                         # className=cms.PPD_MULTISELECT,
                                         children=[
-                                            to_date_datepicker.render(app, production_data),
+                                            to_date_datepicker.render(app, data),
                                         ],
                                         style={'padding': 5, 'flex': 1},
                                     ), 
@@ -77,6 +77,9 @@ def create_layout(app: Dash, production_data: pd.DataFrame) -> html.Div:
                     html.Div(
                         # className=cms.PPD_RIGHT_GRID_MAIN,
                         children=[
+                            
+                            
+                            
                             html.H1(
                                 "Testosstesorrrrrr",
                                 # className='text-center'
