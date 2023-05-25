@@ -5,7 +5,7 @@ import dash_mantine_components as dmc
 from dash.dependencies import Input, Output
 from dash_iconify import DashIconify
 
-from ...data.loader_data import ProductionDataSchema
+from ...data.loader import ProductionDataSchema
 from .. import ids
 
 def render(app: Dash, production_data: pd.DataFrame) -> html.Div:
