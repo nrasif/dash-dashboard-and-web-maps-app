@@ -78,8 +78,6 @@ def load_well_production_data(path: str) -> pd.DataFrame:
         },
         parse_dates=[ProductionDataSchema.DATE]
     )
-    production_data[ProductionDataSchema.YEAR] = production_data[ProductionDataSchema.DATE].dt.year.astype(str)
-    production_data[ProductionDataSchema.MONTH] = production_data[ProductionDataSchema.DATE].dt.month.astype(str)
     
     return production_data
 

@@ -38,6 +38,7 @@ class DataSource:
         # )
         pass
     
+    # property for filtering data
     @property
     def earliest_date(self) -> str:
         return self._data[ProductionDataSchema.DATE].min()
@@ -61,3 +62,21 @@ class DataSource:
     @property
     def unique_wells(self) -> list[str]:
         return sorted(set(self.all_wells))
+    
+    #property for summary card
+    @property
+    def sum_oil(self) -> float:
+        return self._data[ProductionDataSchema.BORE_OIL_VOL].sum()
+    
+    @property
+    def sum_gas(self) -> float:
+        return self._data[ProductionDataSchema.BORE_GAS_VOL].sum()
+    
+    @property
+    def sum_water(self) -> float:
+        return self._data[ProductionDataSchema.BORE_WI_VOL].sum()
+    
+    @property
+    def sum_on_hours(self) -> float:
+        return self.data[ProductionDataSchema.ON_STREAM_HRS].sum()
+    
