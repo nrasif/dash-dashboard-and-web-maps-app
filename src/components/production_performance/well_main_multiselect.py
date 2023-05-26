@@ -4,34 +4,35 @@ import dash_mantine_components as dmc
 from dash.dependencies import Input, Output
 from dash_iconify import DashIconify
 
-from ...data.loader import ProductionDataSchema
+# from ...data.loader import ProductionDataSchema
+from ...data.source import DataSource 
+
 from .. import ids
+
+from .multiselect_helper import to_multiselect_options
     
-def render(app: Dash, data: pd.DataFrame) -> html.Div:
-    all_wells: list[str] = data[ProductionDataSchema.WELLBORE].tolist()
-    unique_wells: list[str] = sorted(set(all_wells))
+def render(app: Dash, source: DataSource) -> html.Div:
     
-    # @app.callback(
-    #     Output(ids.WELL_MAIN_MULTISELECT, "value"),
-    #     [
-    #         Input(ids.YEAR_MAIN_MULTISELECT, "value"),
-    #         Input(ids.MONTH_MAIN_MULTISELECT, "value"),
-    #         Input(ids.SELECT_ALL_WELLS_MAIN_BUTTON, "n_clicks")
-    #     ],
-    # )
+    @app.callback(
+        Output(ids.WELL_MAIN_MULTISELECT, "value"),
+        [
+            Input(ids.FROM_DATE_DATEPICKER, "value"),
+            Input(ids.TO_DATE_DATEPICKER, "value"),
+            Input(ids.SELECT_ALL_WELLS_MAIN_BUTTON, "n_clicks")
+        ],
+    )
     
-    # def select_all_wells(years: list[str], months: list[str], _: int) -> list[str]:
-    #     filtered_data = production_data.query("YEARPRD in @years and MONTHPRD in @months")
-    #     return sorted(set(filtered_data[ProductionDataSchema.WELLBORE].tolist()))
-    
+    def select_all_wells(from_date: str, to_date: str, _: int) -> list[str]:
+        return source.filter(from_date=from_date, to_date=to_date).unique_wells
+        
     return html.Div(
         children=[
             html.H5("Well:"),
             dmc.MultiSelect(
-                className="main-multiselect",
                 id=ids.WELL_MAIN_MULTISELECT,
-                data=[{"label": well, "value": well} for well in unique_wells],
-                value=unique_wells,
+                className="",
+                data=to_multiselect_options(source.unique_wells),
+                value=source.unique_wells,
                 placeholder="Select Wells",
                 searchable=True,
                 clearable=True,
@@ -40,8 +41,8 @@ def render(app: Dash, data: pd.DataFrame) -> html.Div:
             ),
             dmc.Button(
                 'Select All',
-                className="main-multiselect-button",
                 id=ids.SELECT_ALL_WELLS_MAIN_BUTTON,
+                className="",
                 variant="outline",
                 color="dark",
                 radius="5px",

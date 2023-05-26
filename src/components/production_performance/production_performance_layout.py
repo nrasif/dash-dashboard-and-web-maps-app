@@ -4,13 +4,17 @@ import pandas as pd
 from dash import Dash, html
 import dash_mantine_components as dmc
 
+from ...data.source import DataSource
 from src.components.production_performance import (
     from_date_datepicker,
     to_date_datepicker,
-    well_main_multiselect
+    well_main_multiselect,
+    
+    summary_card,
+    
 )
 
-def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
+def create_layout(app: Dash, source: DataSource) -> html.Div:
     return html.Div(
 
             html.Div(
@@ -28,7 +32,7 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
                                     html.Div(
                                         # className=cms.PPD_MULTISELECT,
                                         children=[
-                                            well_main_multiselect.render(app, data),
+                                            well_main_multiselect.render(app, source),
                                         ],
                                         style={'padding': 5, 'flex': 1},
                                     ),
@@ -36,14 +40,14 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
                                     html.Div(
                                         # className=cms.PPD_MULTISELECT,
                                         children=[
-                                            from_date_datepicker.render(app, data),
+                                            from_date_datepicker.render(app, source),
                                         ],
                                         style={'padding': 5, 'flex': 1},
                                     ),
                                     html.Div(
                                         # className=cms.PPD_MULTISELECT,
                                         children=[
-                                            to_date_datepicker.render(app, data),
+                                            to_date_datepicker.render(app, source),
                                         ],
                                         style={'padding': 5, 'flex': 1},
                                     ), 
@@ -64,7 +68,9 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
                             html.Div(
                                 # className=cms.PPD_MULTISELECT,
                                 children=[
-                                    html.H1("TESSSSSSSSSSSSSSTTtttttttttttttttttttttttttttttttttttttT")
+                                    
+                                    summary_card.render(app, source),
+                                
                                 ],
                                 style={'padding': 5, 'flex': 1},
                             ),

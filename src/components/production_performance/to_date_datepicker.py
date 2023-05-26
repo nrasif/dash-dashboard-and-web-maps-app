@@ -1,45 +1,46 @@
-import pandas as pd
-
-from datetime import datetime, date
-
 from dash import Dash, html
 import dash_mantine_components as dmc
 from dash.dependencies import Input, Output
-from dash_iconify import DashIconify
 
-from ...data.loader import ProductionDataSchema
+# from ...data.loader import ProductionDataSchema
+from ...data.source import DataSource 
+
 from .. import ids
 
-def render(app: Dash, data: pd.DataFrame) -> html.Div:
-    all_date: list[str] = data[ProductionDataSchema.DATE].tolist()
-    unique_date: list[str] = sorted(set(all_date), key=str)
+def render(app: Dash, source: DataSource) -> html.Div:
     
-    # @app.callback(
-    #     Output(ids.MONTH_MAIN_MULTISELECT, "value"),
-    #     [
-    #         Input(ids.YEAR_MAIN_MULTISELECT, "value"),
-    #         Input(ids.SELECT_ALL_MONTHS_MAIN_BUTTON, "n_clicks")
-    #     ],
-    # )
+    @app.callback(
+        Output(ids.TO_DATE_DATEPICKER, "value", allow_duplicate=True),
+        [
+            Input(ids.ALL_DATES_AFTER_CHECKBOX, "checked")
+        ], prevent_inital_call=True
+    )
     
-    # def select_all_months(years: list[str], _: int) -> list[str]:
-    #     filtered_data = data.query("YEARPRD in @years")
-    #     return sorted(set(filtered_data[ProductionDataSchema.MONTH].tolist()))
-    
+    def select_latest_date(checked: bool) -> str:
+        if checked == True:
+            return source.latest_date
+        if checked == False:
+            pass
+            
     return html.Div(
         children=[
             html.H5("To:"),
             
             dmc.DatePicker(
                 id=ids.TO_DATE_DATEPICKER,
-                value=data[ProductionDataSchema.DATE].max(),
+                className="",
+                value=source.latest_date,
+                dropdownPosition='flip',
+                initialLevel='year',
                 style={'marginTop':'5px', "width": 175},
             ),
 
             dmc.Checkbox(
                 id=ids.ALL_DATES_AFTER_CHECKBOX,
+                className="",
                 label='Select the latest date',
-                value=data[ProductionDataSchema.DATE].max(),
+                checked=True,
+                value=source.latest_date,
                 color='dark',
                 style={'marginTop':'5px'}
             ),

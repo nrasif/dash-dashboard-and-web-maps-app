@@ -1,14 +1,14 @@
-import pandas as pd
 from dash import Dash, html
 import dash_mantine_components as dmc
 
 # from src.components import cms
 
+from ..data.source import DataSource
 from src.components.production_performance import (
     production_performance_layout
 )
 
-def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
+def create_layout(app: Dash, source: DataSource) -> html.Div:
     return html.Div(
         # className=cms.PRODUCTION_PERFORMANCE_DASHBOARD_LAYOUT,
         children=[
@@ -46,7 +46,7 @@ def create_layout(app: Dash, data: pd.DataFrame) -> html.Div:
                             ),
                             dmc.TabsPanel("AAAAAAAA", value="1"),
                             dmc.TabsPanel("BBBB", value="2"),
-                            dmc.TabsPanel(production_performance_layout.create_layout(app, data), value="3"),
+                            dmc.TabsPanel(production_performance_layout.create_layout(app, source), value="3"),
                             dmc.TabsPanel("DD", value="4"),
                         ],
                         value="3",
