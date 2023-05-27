@@ -32,21 +32,24 @@ class DataSource:
         
         return DataSource(filtered_data)
     
-    def create_pivot_table(self) -> pd.DataFrame:
-        # pt = self._data.pivot_table(
-        #     values=
-        # )
-        pass
+    # def create_pivot_table(self) -> pd.DataFrame:
+    #     # pt = self._data.pivot_table(
+    #     #     values=
+    #     # )
+    #     pass
     
     #for summary card
     def abbreviate_value(self, value: float) -> str:
-        units = ['', 'K', 'M', 'B', 'T']
+        units = [
+            '', 'K', 'M',
+            # 'B', 'T'
+                 ]
         unit_index = 0
         while value >= 1000 and unit_index < len(units) - 1:
             value /= 1000
             unit_index += 1
         formatted_value = f'{value:,.2f}'.rstrip('0').rstrip('.')
-        return print(f'{formatted_value}{units[unit_index]}')
+        return f"{formatted_value}{units[unit_index]}"
     
 
     # def sum_oil(self, data: pd.DataFrame) -> float:

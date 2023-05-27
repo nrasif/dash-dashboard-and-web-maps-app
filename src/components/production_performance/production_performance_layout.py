@@ -1,8 +1,8 @@
-from datetime import datetime, date
+# from datetime import datetime, date
 
-import pandas as pd
+# import pandas as pd
 from dash import Dash, html
-import dash_mantine_components as dmc
+# import dash_mantine_components as dmc
 
 from ...data.source import DataSource
 from src.components.production_performance import (
@@ -11,7 +11,7 @@ from src.components.production_performance import (
     well_main_multiselect,
     
     summary_card,
-    
+    oil_rate_line_chart,
 )
 
 def create_layout(app: Dash, source: DataSource) -> html.Div:
@@ -70,6 +70,7 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                                 children=[
                                     
                                     summary_card.render(app, source),
+                                    # oil_rate_line_chart.render(app, source),
                                 
                                 ],
                                 style={'padding': 5, 'flex': 1},

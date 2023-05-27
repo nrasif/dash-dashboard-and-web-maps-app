@@ -1,4 +1,10 @@
+from functools import partial, reduce
+from typing import Callable, Optional
+
 import pandas as pd
+
+Preprocessor = Callable[[pd.DataFrame], pd.DataFrame]
+
 
 class LogDataSchema:
     WELLBORE = "WELL_BORE_CODE"
@@ -55,8 +61,19 @@ class ProductionDataSchema:
     BORE_WAT_VOL          = "BORE_WAT_VOL"
     BORE_WI_VOL           = "BORE_WI_VOL"
     FLOW_KIND             = "FLOW_KIND"
+    MOVING_AVERAGE        = "MOVING_AVERAGE"
     # DATEPRD,WELL_BORE_CODE,ON_STREAM_HRS,AVG_DOWNHOLE_PRESSURE,AVG_DP_TUBING,AVG_WHP_P,AVG_WHT_P,DP_CHOKE_SIZE,BORE_OIL_VOL,BORE_GAS_VOL,BORE_WAT_VOL,BORE_WI_VOL,FLOW_KIND
-
+    
+# create
+def create_moving_avg_column(df: pd.DataFrame, days: Optional[int] = None) -> pd.DataFrame:
+    if days is None:
+        days = 14
+    
+    df[ProductionDataSchema.MOVING_AVERAGE] = df[ProductionDataSchema.BORE_OIL_VOL].rolling(days).mean()
+    return df
+    
+def compose(*functions: Preprocessor) -> Preprocessor:
+    return reduce(lambda f, g: lambda x: g(f(x)), functions)
 
 def load_well_production_data(path: str) -> pd.DataFrame:
     
@@ -76,8 +93,9 @@ def load_well_production_data(path: str) -> pd.DataFrame:
             ProductionDataSchema.BORE_WI_VOL          : float,
             ProductionDataSchema.FLOW_KIND            : str,
         },
-        parse_dates=[ProductionDataSchema.DATE]
+        parse_dates=[ProductionDataSchema.DATE],
     )
+    # production_data[ProductionDataSchema]
     
     return production_data
 

@@ -1,6 +1,6 @@
 from dash import Dash, html
 import dash_mantine_components as dmc
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 from dash_iconify import DashIconify
 
 from ...data.source import DataSource
@@ -26,17 +26,16 @@ def render(app: Dash, source: DataSource) -> html.Div:
         generate_sum_wi = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_wi
         generate_sum_on_hours = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_on_hours
         
-        # abb_sum_oil = source.abbreviate_value(generate_sum_oil)
-        # abb_sum_gas = source.abbreviate_value(generate_sum_gas)
-        # abb_sum_wi = source.abbreviate_value(generate_sum_wi)
-        # abb_sum_on_hours = source.abbreviate_value(generate_sum_on_hours)
+        abb_sum_oil = source.abbreviate_value(generate_sum_oil)
+        abb_sum_gas = source.abbreviate_value(generate_sum_gas)
+        abb_sum_wi = source.abbreviate_value(generate_sum_wi)
+        abb_sum_on_hours = source.abbreviate_value(generate_sum_on_hours)
         
         return (
-            f"{generate_sum_oil}",
-            f"{generate_sum_gas}",
-            f"{generate_sum_wi}",
-            f"{generate_sum_on_hours}"
-            # f"{generate_sum_on_hours}"
+            f"{abb_sum_oil}",
+            f"{abb_sum_gas}",
+            f"{abb_sum_wi}",
+            f"{abb_sum_on_hours}"
         )
     
     return html.Div(
@@ -148,7 +147,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                         dmc.Card(
                                             children=[
                                                 dmc.Title(
-                                                    f"On Stream Time (Hours)",
+                                                    f"Total On Stream Time (Hours)",
                                                     order=4, 
                                                     align='center',
                                                     color='white',
