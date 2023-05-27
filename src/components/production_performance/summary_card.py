@@ -8,23 +8,36 @@ from .. import ids
 
 def render(app: Dash, source: DataSource) -> html.Div:
     
-    # @app.callback(
-    #     Output(ids.TOTAL_OIL_PRODUCTION_AMOUNT_CARD, "children", allow_duplicate=True),
-    #     Output(ids.TOTAL_GAS_PRODUCTION_AMOUNT_CARD, "children", allow_duplicate=True),
-    #     Output(ids.TOTAL_WATER_INJECTION_AMOUNT_CARD, "children", allow_duplicate=True),
-    #     Output(ids.ON_STREAM_TIME_AMOUNT_CARD, "children", allow_duplicate=True),
-    #     [
-    #         Input(ids.FROM_DATE_DATEPICKER,  "value"),
-    #         Input(ids.TO_DATE_DATEPICKER,    "value"),
-    #         Input(ids.WELL_MAIN_MULTISELECT, "value"),
-    #     ],  prevent_inital_call=True
-    # )
+    @app.callback(
+        Output(ids.TOTAL_OIL_PRODUCTION_AMOUNT_CARD, "children", allow_duplicate=True),
+        Output(ids.TOTAL_GAS_PRODUCTION_AMOUNT_CARD, "children", allow_duplicate=True),
+        Output(ids.TOTAL_WATER_INJECTION_AMOUNT_CARD, "children", allow_duplicate=True),
+        Output(ids.ON_STREAM_TIME_AMOUNT_CARD, "children", allow_duplicate=True),
+        [
+            Input(ids.FROM_DATE_DATEPICKER,  "value"),
+            Input(ids.TO_DATE_DATEPICKER,    "value"),
+            Input(ids.WELL_MAIN_MULTISELECT, "value"),
+        ],  prevent_inital_call=True
+    )
     
-    # def total_all_category(from_date: str, to_date: str, wells: str) -> float:
-    #     if checked == True:
-    #         return source.latest_date
-    #     if checked == False:
-    #         pass
+    def calculate_total(from_date: str, to_date: str, wells: str) -> float:
+        generate_sum_oil = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_oil
+        generate_sum_gas = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_gas
+        generate_sum_wi = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_wi
+        generate_sum_on_hours = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_on_hours
+        
+        # abb_sum_oil = source.abbreviate_value(generate_sum_oil)
+        # abb_sum_gas = source.abbreviate_value(generate_sum_gas)
+        # abb_sum_wi = source.abbreviate_value(generate_sum_wi)
+        # abb_sum_on_hours = source.abbreviate_value(generate_sum_on_hours)
+        
+        return (
+            f"{generate_sum_oil}",
+            f"{generate_sum_gas}",
+            f"{generate_sum_wi}",
+            f"{generate_sum_on_hours}"
+            # f"{generate_sum_on_hours}"
+        )
     
     return html.Div(
         
@@ -50,7 +63,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                     style={},
                                                 ),
                                                 dmc.Text(
-                                                    "11.0M",
+                                                    # "11.0M",
                                                     id=ids.TOTAL_OIL_PRODUCTION_AMOUNT_CARD,
                                                     className="",
                                                     weight=600,
@@ -81,7 +94,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                     style={},
                                                 ),
                                                 dmc.Text(
-                                                    "1,234.5M",
+                                                    # "1,234.5M",
                                                     id=ids.TOTAL_GAS_PRODUCTION_AMOUNT_CARD,
                                                     className="",
                                                     weight=600,
@@ -112,7 +125,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                     style={},
                                                 ),
                                                 dmc.Text(
-                                                    "54.3M",
+                                                    # "54.3M",
                                                     id=ids.TOTAL_WATER_INJECTION_AMOUNT_CARD,
                                                     className="",
                                                     weight=600,
@@ -143,7 +156,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                     style={},
                                                 ),
                                                 dmc.Text(
-                                                    "321K",
+                                                    # "321K",
                                                     id=ids.ON_STREAM_TIME_AMOUNT_CARD,
                                                     className="",
                                                     weight=600,

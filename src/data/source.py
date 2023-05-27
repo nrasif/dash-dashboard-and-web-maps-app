@@ -38,7 +38,38 @@ class DataSource:
         # )
         pass
     
+    #for summary card
+    def abbreviate_value(self, value: float) -> str:
+        units = ['', 'K', 'M', 'B', 'T']
+        unit_index = 0
+        while value >= 1000 and unit_index < len(units) - 1:
+            value /= 1000
+            unit_index += 1
+        formatted_value = f'{value:,.2f}'.rstrip('0').rstrip('.')
+        return print(f'{formatted_value}{units[unit_index]}')
+    
+
+    # def sum_oil(self, data: pd.DataFrame) -> float:
+    #     return data[ProductionDataSchema.BORE_OIL_VOL].sum()
+    
+    
+    # def sum_gas(self, data: pd.DataFrame) -> float:
+    #     return data[ProductionDataSchema.BORE_GAS_VOL].sum()
+    
+    
+    # def sum_wi(self, data: pd.DataFrame) -> float:
+    #     return data[ProductionDataSchema.BORE_WI_VOL].sum()
+    
+    
+    # def sum_on_hours(self, data: pd.DataFrame) -> float:
+    #     return data[ProductionDataSchema.ON_STREAM_HRS].sum()
+    
     # property for filtering data
+    # property it's about something that we really need to do with all the properties of the dataframe:)
+    @property
+    def all_dates(self):
+        return self._data[ProductionDataSchema.DATE]
+    
     @property
     def earliest_date(self) -> str:
         return self._data[ProductionDataSchema.DATE].min()
@@ -67,16 +98,12 @@ class DataSource:
     @property
     def sum_oil(self) -> float:
         return self._data[ProductionDataSchema.BORE_OIL_VOL].sum()
-    
     @property
     def sum_gas(self) -> float:
         return self._data[ProductionDataSchema.BORE_GAS_VOL].sum()
-    
     @property
-    def sum_water(self) -> float:
+    def sum_wi(self) -> float:
         return self._data[ProductionDataSchema.BORE_WI_VOL].sum()
-    
-    @property
+    @property 
     def sum_on_hours(self) -> float:
-        return self.data[ProductionDataSchema.ON_STREAM_HRS].sum()
-    
+        return self._data[ProductionDataSchema.ON_STREAM_HRS].sum()
