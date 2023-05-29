@@ -55,6 +55,12 @@ class DataSource:
     
     # property for filtering data
     # property it's about something that we really need to do with all the properties of the dataframe:)
+    # basic = create dataframe of pandas to be called
+    @property
+    def to_dataframe(self):
+        dataframe = pd.DataFrame(self._data)
+        return dataframe
+    
     @property
     def all_dates(self):
         return self._data[ProductionDataSchema.DATE]
@@ -99,5 +105,5 @@ class DataSource:
     
     #property for oil rate line chart
     @property
-    def moving_average(self) -> pd.DataFrame:
+    def moving_average(self):
         return self._data[ProductionDataSchema.MOVING_AVERAGE]

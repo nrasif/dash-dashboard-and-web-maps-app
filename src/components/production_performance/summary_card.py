@@ -20,7 +20,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         ],  prevent_inital_call=True
     )
     
-    def calculate_total(from_date: str, to_date: str, wells: str) -> float:
+    def calculate_total(from_date: str, to_date: str, wells: list[str]) -> float:
         generate_sum_oil = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_oil
         generate_sum_gas = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_gas
         generate_sum_wi = source.filter(from_date=from_date, to_date=to_date, wells=wells).sum_wi
