@@ -43,7 +43,7 @@ class DataSource:
         units = [
             '', 'K', 'M',
             # 'B', 'T'
-                 ]
+        ]
         unit_index = 0
         while value >= 1000 and unit_index < len(units) - 1:
             value /= 1000
@@ -52,20 +52,6 @@ class DataSource:
         return f"{formatted_value}{units[unit_index]}"
     
 
-    # def sum_oil(self, data: pd.DataFrame) -> float:
-    #     return data[ProductionDataSchema.BORE_OIL_VOL].sum()
-    
-    
-    # def sum_gas(self, data: pd.DataFrame) -> float:
-    #     return data[ProductionDataSchema.BORE_GAS_VOL].sum()
-    
-    
-    # def sum_wi(self, data: pd.DataFrame) -> float:
-    #     return data[ProductionDataSchema.BORE_WI_VOL].sum()
-    
-    
-    # def sum_on_hours(self, data: pd.DataFrame) -> float:
-    #     return data[ProductionDataSchema.ON_STREAM_HRS].sum()
     
     # property for filtering data
     # property it's about something that we really need to do with all the properties of the dataframe:)
@@ -110,3 +96,8 @@ class DataSource:
     @property 
     def sum_on_hours(self) -> float:
         return self._data[ProductionDataSchema.ON_STREAM_HRS].sum()
+    
+    #property for oil rate line chart
+    @property
+    def moving_average(self) -> pd.DataFrame:
+        return self._data[ProductionDataSchema.MOVING_AVERAGE]

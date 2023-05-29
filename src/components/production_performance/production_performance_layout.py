@@ -70,7 +70,8 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                                 children=[
                                     
                                     summary_card.render(app, source),
-                                    # oil_rate_line_chart.render(app, source),
+                                    
+                                    oil_rate_line_chart.render(app, source),
                                 
                                 ],
                                 style={'padding': 5, 'flex': 1},

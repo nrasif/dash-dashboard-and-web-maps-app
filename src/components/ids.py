@@ -17,3 +17,6 @@ TOTAL_OIL_PRODUCTION_AMOUNT_CARD  = "total-oil-production-amount-card"
 TOTAL_GAS_PRODUCTION_AMOUNT_CARD  = "total-gas-production-amount-card"
 TOTAL_WATER_INJECTION_AMOUNT_CARD = "total-water-injection-amount-card"
 ON_STREAM_TIME_AMOUNT_CARD        = "on-stream-time-amount-card"
+
+# oil rate chart
+OIL_RATE_LINE_CHART = "oil-rate-line-chart"
