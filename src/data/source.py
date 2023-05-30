@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Optional
+from datetime import datetime, date
 
 import pandas as pd
 from .loader import ProductionDataSchema
@@ -61,17 +62,21 @@ class DataSource:
         dataframe = pd.DataFrame(self._data)
         return dataframe
     
+    # @property
+    # def to_datetime(self):
+    #     data
+    
     @property
     def all_dates(self):
         return self._data[ProductionDataSchema.DATE]
     
     @property
     def earliest_date(self) -> str:
-        return self._data[ProductionDataSchema.DATE].min()
+        return self._data[ProductionDataSchema.DATE].min().date()
     
     @property
     def latest_date(self) -> str:
-        return self._data[ProductionDataSchema.DATE].max()
+        return self._data[ProductionDataSchema.DATE].max().date()
     
     @property
     def unique_from_date(self) -> str:

@@ -36,7 +36,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
                     "MOVING_AVERAGE":"14-days Moving Average Oil (m3)",
                     "DATEPRD": "Year",
                     "WELL_BORE_CODE": "Wells"
-                }
+                },
+                # style={}
             )
 
         return html.Div(dcc.Graph(figure=fig), id=ids.OIL_RATE_LINE_CHART)

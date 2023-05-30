@@ -9,6 +9,7 @@ from src.components.production_performance import (
     from_date_datepicker,
     to_date_datepicker,
     well_main_multiselect,
+    date_rangeslider,
     
     summary_card,
     oil_rate_line_chart,
@@ -69,9 +70,15 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                                 # className=cms.PPD_MULTISELECT,
                                 children=[
                                     
+                                    html.H2("Summary Card",style={"marginTop":15, "text-align": "center"}),
+                                    
                                     summary_card.render(app, source),
                                     
+                                    html.H2("Oil Production Rate",style={"marginTop":30, "text-align": "center"}),
+                                    
                                     oil_rate_line_chart.render(app, source),
+                                    
+                                    html.H2("TESTSSSSS",style={"marginTop":30, "text-align": "center"}),
                                 
                                 ],
                                 style={'padding': 5, 'flex': 1},
@@ -86,7 +93,7 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                         # className=cms.PPD_RIGHT_GRID_MAIN,
                         children=[
                             
-                            
+                            # date_rangeslider.render(app, source),
                             
                             html.H1(
                                 "Testosstesorrrrrr",

@@ -173,7 +173,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                     ],
                                 ),
                                 
-                            ]
+                            ],
+                            style={"marginTop":20}
                         ),
                     ]
                 )
