@@ -23,12 +23,12 @@ def render(app: Dash, source: DataSource) -> html.Div:
     )
     
     def update_bar_chart(from_date: str, to_date: str, wells: list[str]) -> html.Div:
-        filtered_source = source.filter(from_date=from_date, to_date=to_date, wells=wells)
+        filtered_source_pt = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date_well_ma()
 #     #     if not filtered_source.row_count:
 #     #         return html.Div(i18n.t("general.no_data"), id=ids.BAR_CHART)
 
         fig = px.line(
-                filtered_source.to_dataframe,
+                filtered_source_pt,
                 x=ProductionDataSchema.DATE,
                 y=ProductionDataSchema.MOVING_AVERAGE,
                 color=ProductionDataSchema.WELLBORE,

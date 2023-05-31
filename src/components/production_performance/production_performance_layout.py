@@ -96,7 +96,7 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                             # date_rangeslider.render(app, source),
                             
                             html.H1(
-                                "Testosstesorrrrrr",
+                                "Well Stats",
                                 # className='text-center'
                             ),
                             

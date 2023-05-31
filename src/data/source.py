@@ -11,6 +11,7 @@ from .loader import ProductionDataSchema
 class DataSource:
     _data: pd.DataFrame
     
+    # main filter
     def filter(
         self,
         from_date: Optional[str] = None,
@@ -33,11 +34,35 @@ class DataSource:
         
         return DataSource(filtered_data)
     
-    # def create_pivot_table(self) -> pd.DataFrame:
-    #     # pt = self._data.pivot_table(
-    #     #     values=
-    #     # )
-    #     pass
+    # pivot table-ing
+    # Date, Well and Moving Average
+    def create_pivot_table_date_well_ma(self) -> pd.DataFrame:
+        pt = self._data.pivot_table(
+            values=[ProductionDataSchema.BORE_OIL_VOL,ProductionDataSchema.MOVING_AVERAGE],
+            index=[ProductionDataSchema.DATE, ProductionDataSchema.WELLBORE],
+            # aggfunc="sum",
+            # fill_value=0,
+            # dropna=False,
+        )
+        return pt.sort_values(ProductionDataSchema.DATE, ascending=True).reset_index()
+    
+    # Cumulative Amount based on Well - for Pie Chart
+    def create_pivot_table_well(self, column_name):
+        pt = self._data.pivot_table(
+            values=[column_name],
+            index=[ProductionDataSchema.WELLBORE],
+            aggfunc="sum"
+        )
+        return pt.sort_values(ProductionDataSchema.WELLBORE, ascending=True).reset_index()
+    
+    # Cumulative Amount based on Dates - for Line Chart
+    def create_pivot_table_date(self, column_name):
+        pt = self._data.pivot_table(
+            values=[column_name],
+            index=[ProductionDataSchema.DATE],
+            aggfunc="sum"
+        )
+        return pt.sort_values(ProductionDataSchema.DATE, ascending=True).reset_index()
     
     #for summary card
     def abbreviate_value(self, value: float) -> str:
@@ -72,11 +97,11 @@ class DataSource:
     
     @property
     def earliest_date(self) -> str:
-        return self._data[ProductionDataSchema.DATE].min().date()
+        return self._data[ProductionDataSchema.DATE].min()
     
     @property
     def latest_date(self) -> str:
-        return self._data[ProductionDataSchema.DATE].max().date()
+        return self._data[ProductionDataSchema.DATE].max()
     
     @property
     def unique_from_date(self) -> str:
