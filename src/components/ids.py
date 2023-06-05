@@ -20,3 +20,6 @@ ON_STREAM_TIME_AMOUNT_CARD        = "on-stream-time-amount-card"
 
 # oil rate chart
 OIL_RATE_LINE_CHART = "oil-rate-line-chart"
+
+# well stats subplots
+WELL_STATS_SUBPLOTS = "well-stats-subplots"

@@ -13,6 +13,7 @@ from src.components.production_performance import (
     
     summary_card,
     oil_rate_line_chart,
+    well_stats_subplots
 )
 
 def create_layout(app: Dash, source: DataSource) -> html.Div:
@@ -92,17 +93,18 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                     html.Div(
                         # className=cms.PPD_RIGHT_GRID_MAIN,
                         children=[
-                            
+                            # html.H5("Rangeslider:"),
                             # date_rangeslider.render(app, source),
                             
-                            html.H1(
-                                "Well Stats",
+                            html.H2("Well Stats", style={"text-align": "center"},
                                 # className='text-center'
                             ),
                             
+                            well_stats_subplots.render(app, source),
+                            
                             
                         ],
-                        style={'display': 'flex', 'flex-direction': 'row', 'padding': 10, 'flex': 1},
+                        style={'padding': 5, 'flex': 1},
                     ),
                 ],
                 style={'display': 'grid', 'grid-template-columns': '1fr 1fr', 'grid-template-rows': 'auto'},

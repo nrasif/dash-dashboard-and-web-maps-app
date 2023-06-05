@@ -35,10 +35,10 @@ class DataSource:
         return DataSource(filtered_data)
     
     # pivot table-ing
-    # Date, Well and Moving Average
-    def create_pivot_table_date_well_ma(self) -> pd.DataFrame:
+    # Date, Well - for Moving Average Chart
+    def create_pivot_table_date_well(self, column_name: str) -> pd.DataFrame:
         pt = self._data.pivot_table(
-            values=[ProductionDataSchema.BORE_OIL_VOL,ProductionDataSchema.MOVING_AVERAGE],
+            values=[column_name],
             index=[ProductionDataSchema.DATE, ProductionDataSchema.WELLBORE],
             # aggfunc="sum",
             # fill_value=0,
@@ -47,21 +47,38 @@ class DataSource:
         return pt.sort_values(ProductionDataSchema.DATE, ascending=True).reset_index()
     
     # Cumulative Amount based on Well - for Pie Chart
-    def create_pivot_table_well(self, column_name):
-        pt = self._data.pivot_table(
-            values=[column_name],
-            index=[ProductionDataSchema.WELLBORE],
-            aggfunc="sum"
-        )
+    def create_pivot_table_well(self, column_name: str, column_name2: Optional[str] = None) -> pd.DataFrame:
+        if column_name2 is not None:
+            pt = self._data.pivot_table(
+                values=[column_name, column_name2],
+                index=[ProductionDataSchema.WELLBORE],
+                aggfunc="sum"
+            )
+            
+        else:
+            pt = self._data.pivot_table(
+                values=[column_name],
+                index=[ProductionDataSchema.WELLBORE],
+                aggfunc="sum"
+            )
+            
         return pt.sort_values(ProductionDataSchema.WELLBORE, ascending=True).reset_index()
     
     # Cumulative Amount based on Dates - for Line Chart
-    def create_pivot_table_date(self, column_name):
-        pt = self._data.pivot_table(
-            values=[column_name],
-            index=[ProductionDataSchema.DATE],
-            aggfunc="sum"
-        )
+    def create_pivot_table_date(self, column_name: str, column_name2: Optional[str] = None) -> pd.DataFrame:
+        if column_name2 is not None:
+            pt = self._data.pivot_table(
+                values=[column_name, column_name2],
+                index=[ProductionDataSchema.DATE],
+                aggfunc="sum"
+            )
+            
+        else:
+            pt = self._data.pivot_table(
+                values=[column_name],
+                index=[ProductionDataSchema.DATE],
+                aggfunc="sum"
+            )
         return pt.sort_values(ProductionDataSchema.DATE, ascending=True).reset_index()
     
     #for summary card
