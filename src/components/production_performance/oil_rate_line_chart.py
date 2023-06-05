@@ -22,8 +22,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
         ],  prevent_inital_call=True
     )
     
-    def update_bar_chart(from_date: str, to_date: str, wells: list[str]) -> html.Div:
-        filtered_source_pt = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date_well(ProductionDataSchema.MOVING_AVERAGE_OIL)
+    def update_line_chart(from_date: str, to_date: str, wells: list[str]) -> html.Div:
+        filtered_source_pt = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date_well_ma(ProductionDataSchema.MOVING_AVERAGE_OIL)
 #     #     if not filtered_source.row_count:
 #     #         return html.Div(i18n.t("general.no_data"), id=ids.BAR_CHART)
 

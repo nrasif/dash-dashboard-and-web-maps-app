@@ -23,3 +23,6 @@ OIL_RATE_LINE_CHART = "oil-rate-line-chart"
 
 # well stats subplots
 WELL_STATS_SUBPLOTS = "well-stats-subplots"
+
+# water injection subplots
+WATER_INJECTION_SUBPLOTS = "water-injection-subplots"

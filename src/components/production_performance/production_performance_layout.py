@@ -13,7 +13,8 @@ from src.components.production_performance import (
     
     summary_card,
     oil_rate_line_chart,
-    well_stats_subplots
+    well_stats_subplots,
+    water_injection_subplots
 )
 
 def create_layout(app: Dash, source: DataSource) -> html.Div:
@@ -101,6 +102,12 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                             ),
                             
                             well_stats_subplots.render(app, source),
+                            
+                            html.H2("Daily Water Injection", style={"marginTop":15, "text-align": "center"},
+                                # className='text-center'
+                            ),
+                            
+                            water_injection_subplots.render(app, source),
                             
                             
                         ],

@@ -22,7 +22,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         ],  prevent_inital_call=True
     )
     
-    def update_bar_chart(from_date: str, to_date: str, wells: list[str]) -> html.Div:
+    def update_subplots(from_date: str, to_date: str, wells: list[str]) -> html.Div:
         
         filtered_pt_cum_oil_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date(ProductionDataSchema.BORE_OIL_VOL)
         filtered_pt_cum_oil_well = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_well(ProductionDataSchema.BORE_OIL_VOL)
@@ -48,6 +48,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Line
         figure.add_trace(
             go.Scatter(
+                name="Cum Oil (m3) by Time",
                 x=filtered_pt_cum_oil_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_oil_date[ProductionDataSchema.BORE_OIL_VOL],
                 mode='lines',
@@ -61,6 +62,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Pie
         figure.add_trace(
             go.Pie(
+                name="Cum Oil (m3) by Well",
                 labels=filtered_pt_cum_oil_well[ProductionDataSchema.WELLBORE].to_list(),
                 values=filtered_pt_cum_oil_well[ProductionDataSchema.BORE_OIL_VOL].to_list(),
                 hole=0.5
@@ -75,6 +77,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Line
         figure.add_trace(
             go.Scatter(
+                name="Cum Gas (m3) by Time",
                 x=filtered_pt_cum_gas_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_gas_date[ProductionDataSchema.BORE_GAS_VOL],
                 mode='lines',
@@ -88,6 +91,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Pie
         figure.add_trace(
             go.Pie(
+                name="Cum Gas (m3) by Well",
                 labels=filtered_pt_cum_gas_well[ProductionDataSchema.WELLBORE].to_list(),
                 values=filtered_pt_cum_gas_well[ProductionDataSchema.BORE_GAS_VOL].to_list(),
                 hole=0.5
@@ -102,6 +106,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Line
         figure.add_trace(
             go.Scatter(
+                name="Cum Water (m3) by Time",
                 x=filtered_pt_cum_water_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_water_date[ProductionDataSchema.BORE_WAT_VOL],
                 mode='lines',
@@ -114,6 +119,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         
         figure.add_trace(
             go.Scatter(
+                name="Cum Water Injection (m3) by Time",
                 x=filtered_pt_cum_water_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_water_date[ProductionDataSchema.BORE_WI_VOL],
                 mode='lines',
@@ -129,6 +135,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Pie
         figure.add_trace(
             go.Pie(
+                name="Cum Water (m3) by Well",
                 labels=filtered_pt_cum_water_well[ProductionDataSchema.WELLBORE].to_list(),
                 values=filtered_pt_cum_water_well[ProductionDataSchema.BORE_WAT_VOL].to_list(),
                 hole=0.5

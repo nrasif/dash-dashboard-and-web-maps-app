@@ -36,7 +36,7 @@ class DataSource:
     
     # pivot table-ing
     # Date, Well - for Moving Average Chart
-    def create_pivot_table_date_well(self, column_name: str) -> pd.DataFrame:
+    def create_pivot_table_date_well_ma(self, column_name: str) -> pd.DataFrame:
         pt = self._data.pivot_table(
             values=[column_name],
             index=[ProductionDataSchema.DATE, ProductionDataSchema.WELLBORE],
