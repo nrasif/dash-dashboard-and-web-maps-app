@@ -7,7 +7,7 @@ from dash_iconify import DashIconify
 # from ...data.loader import ProductionDataSchema
 from ...data.source import DataSource 
 
-from .. import ids
+from .. import ids, cns
 
 from .multiselect_helper import to_multiselect_options
     
@@ -27,7 +27,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
         
     return html.Div(
         children=[
-            html.H5("Well:"),
+            html.H5("Well:", className=cns.PPD_H5),
+            
             dmc.MultiSelect(
                 id=ids.WELL_MAIN_MULTISELECT,
                 className="",

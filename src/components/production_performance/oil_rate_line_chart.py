@@ -9,7 +9,7 @@ import plotly.express as px
 
 from ...data.loader import ProductionDataSchema
 from ...data.source import DataSource
-from .. import ids
+from .. import ids, cns
 
 
 def render(app: Dash, source: DataSource) -> html.Div:
@@ -40,6 +40,6 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 # style={}
             )
 
-        return html.Div(dcc.Graph(figure=fig), id=ids.OIL_RATE_LINE_CHART)
+        return html.Div(dcc.Graph(figure=fig), id=ids.OIL_RATE_LINE_CHART, className=cns.PPD_FIRST_CHART_LEFT_GRID)
 
-    return html.Div(id=ids.OIL_RATE_LINE_CHART)
+    return html.Div(id=ids.OIL_RATE_LINE_CHART, className=cns.PPD_FIRST_CHART_LEFT_GRID)

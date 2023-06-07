@@ -1,7 +1,7 @@
 from dash import Dash, html
 import dash_mantine_components as dmc
 
-# from src.components import cms
+from src.components import cns
 
 from ..data.source import DataSource
 from src.components.production_performance import (
@@ -10,18 +10,18 @@ from src.components.production_performance import (
 
 def create_layout(app: Dash, source: DataSource) -> html.Div:
     return html.Div(
-        # className=cms.PRODUCTION_PERFORMANCE_DASHBOARD_LAYOUT,
+        className=cns.PPD_LAYOUT,
         children=[
             html.Div(
-                # className=cms.PPD_HEADER,
+                className=cns.PPD_HEADER,
                 children=[
                     html.H1(
                         app.title,
-                        # className=cms.PPD_TITLE,
+                        className=cns.PPD_TITLE,
                         style={}
                     ),
                     dmc.Spoiler(
-                        # className='summary-content',
+                        className=cns.PPD_SUMMARY,
                         showLabel='Show more',
                         hideLabel='Hide',
                         maxHeight=25,
@@ -38,18 +38,20 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                         [
                             dmc.TabsList(
                                 [
-                                    dmc.Tab("Main Summary", value="1"),
+                                    dmc.Tab("Overview", value="1"),
                                     dmc.Tab("Web Maps", value="2"),
                                     dmc.Tab("Production Performance", value="3"),
                                     dmc.Tab("Geology & Geophysics Analysis", value="4"),
-                                ]
+                                ],
+                                className=cns.PPD_TABLIST
                             ),
-                            dmc.TabsPanel("AAAAAAAA", value="1"),
-                            dmc.TabsPanel("BBBB", value="2"),
-                            dmc.TabsPanel(production_performance_layout.create_layout(app, source), value="3"),
-                            dmc.TabsPanel("DD", value="4"),
+                            dmc.TabsPanel("AAAAAAAA", value="1", className=cns.PPD_TABSPANEL),
+                            dmc.TabsPanel("BBBB", value="2",className=cns.PPD_TABSPANEL),
+                            dmc.TabsPanel(production_performance_layout.create_layout(app, source), value="3", className=cns.PPD_TABSPANEL),
+                            dmc.TabsPanel("DD", value="4", className=cns.PPD_TABSPANEL),
                         ],
                         value="3",
+                        className=cns.PPD_TABS
                     )
                 ],
                 style={"padding": 10},

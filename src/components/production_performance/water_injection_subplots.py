@@ -10,7 +10,7 @@ from plotly.subplots import make_subplots
 
 from ...data.loader import ProductionDataSchema
 from ...data.source import DataSource
-from .. import ids
+from .. import ids, cns
 
 def render(app: Dash, source: DataSource) -> html.Div:
     @app.callback(
@@ -33,8 +33,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Initialize figure with subplots
         figure = make_subplots(
                     rows=1, cols=2,
-                    # column_widths=[0.5, 0.5],
-                    # row_heights=[0.5, 0.5],
+                    column_widths=[0.3, 0.7],
+                    row_heights=[0.5],
                     specs=[
                         [{"type": "pie"}, {"type": "scatter"}],
                     ]
@@ -55,13 +55,13 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # line chart for MA of Well-N2
         figure.add_trace(
             go.Scatter(
-                name="Cum Water Injection (m3) by Time",
+                name="Cum Water Injection (m3) by Time of Well-N2",
                 x=pt_ma_wi_date_w1[ProductionDataSchema.DATE],
                 y=pt_ma_wi_date_w1[ProductionDataSchema.MOVING_AVERAGE_WI],
                 mode='lines',
                 # fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
                 line={'color': 'red'},
-                showlegend=False
+                showlegend=True
                 ),
                 row=1, col=2
             )
@@ -69,17 +69,17 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # line chart for MA of Well-W2
         figure.add_trace(
             go.Scatter(
-                name="Cum Water Injection (m3) by Time",
+                name="Cum Water Injection (m3) by Time of Well-W2",
                 x=pt_ma_wi_date_w2[ProductionDataSchema.DATE],
                 y=pt_ma_wi_date_w2[ProductionDataSchema.MOVING_AVERAGE_WI],
                 mode='lines',
                 # fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
                 line={'color': 'blue'},
-                showlegend=False
+                showlegend=True
                 ),
                 row=1, col=2
             )
         
-        return html.Div(dcc.Graph(figure=figure), id=ids.WATER_INJECTION_SUBPLOTS)
+        return html.Div(dcc.Graph(figure=figure), id=ids.WATER_INJECTION_SUBPLOTS, className=cns.PPD_SECOND_CHART_RIGHT_GRID)
 
-    return html.Div(id=ids.WATER_INJECTION_SUBPLOTS)
+    return html.Div(id=ids.WATER_INJECTION_SUBPLOTS, className=cns.PPD_SECOND_CHART_RIGHT_GRID)

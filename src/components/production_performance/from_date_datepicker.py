@@ -6,7 +6,7 @@ from dash_iconify import DashIconify
 # from ...data.loader import ProductionDataSchema
 from ...data.source import DataSource 
 
-from .. import ids
+from .. import ids, cns
 
 def render(app: Dash, source: DataSource) -> html.Div:
     
@@ -38,13 +38,14 @@ def render(app: Dash, source: DataSource) -> html.Div:
         return checked1, checked2
     
     return html.Div(
+        className=cns.PPD_FROM_DATE_PICKER_WRAPPER,
         children=[
                         
-            html.H5("From:"),
+            html.H5("From:", className=cns.PPD_H5),
             
             dmc.DatePicker(
                 id=ids.FROM_DATE_DATEPICKER,
-                className="",
+                className=cns.PPD_FROM_DATE_PICKER_DATEPICKER,
                 value=source.earliest_date,
                 dropdownPosition='flip',
                 initialLevel='year',
@@ -53,7 +54,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
 
             dmc.Checkbox(
                 id=ids.ALL_DATES_BEFORE_CHECKBOX,
-                className="",
+                className=cns.PPD_ALL_DATE_PICKER_CHECKBOX,
                 label='Select the earliest date',
                 checked=True,
                 value=source.earliest_date,
@@ -64,7 +65,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
             dmc.Button(
                 'Select All',
                 id=ids.ALL_DATES_MAIN_BUTTON,
-                className="",
+                className=cns.PPD_FROM_DATE_PICKER_BUTTON,
                 variant="outline",
                 color="dark",
                 radius="5px",

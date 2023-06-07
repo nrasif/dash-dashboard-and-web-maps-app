@@ -26,3 +26,12 @@ WELL_STATS_SUBPLOTS = "well-stats-subplots"
 
 # water injection subplots
 WATER_INJECTION_SUBPLOTS = "water-injection-subplots"
+
+# water cut daily and GOR subplots
+WATER_CUT_GOR_SUBPLOTS = "water-cut-gor-subplots"
+
+# oil vs water subplots
+OIL_VS_WATER_SUBPLOTS = "oil-vs-water-subplots"
+
+# dp choke size vs avg dp subplots
+DP_CS_VS_AVG_DP_SUBPLOTS = "dp-cs-vs-avg-dp-subplots"

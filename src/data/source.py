@@ -81,6 +81,26 @@ class DataSource:
             )
         return pt.sort_values(ProductionDataSchema.DATE, ascending=True).reset_index()
     
+    # Cumulative amount based on Dates, fill value with 0, for Water Cut and Gas Oil Ratio
+    def create_pivot_table_date_avg(self, column_name: str, column_name2: Optional[str] = None) -> pd.DataFrame:
+        if column_name2 is not None:
+            pt = self._data.pivot_table(
+                values=[column_name, column_name2],
+                index=[ProductionDataSchema.DATE],
+                aggfunc="mean",
+                dropna=False,
+            )
+            
+        else:
+            pt = self._data.pivot_table(
+                values=[column_name],
+                index=[ProductionDataSchema.DATE],
+                aggfunc="mean",
+                dropna=False,
+            )
+        return pt.sort_values(ProductionDataSchema.DATE, ascending=True).interpolate(method='backfill').reset_index()
+    
+    
     #for summary card
     def abbreviate_value(self, value: float) -> str:
         units = [

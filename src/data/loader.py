@@ -64,15 +64,27 @@ class ProductionDataSchema:
     MOVING_AVERAGE        = "MOVING_AVERAGE"
     MOVING_AVERAGE_OIL    = "MOVING_AVERAGE_OIL"
     MOVING_AVERAGE_WI     = "MOVING_AVERAGE_WI"
+    WATER_CUT_DAILY       = "WATER_CUT_DAILY"
+    GAS_OIL_RATIO         = "GAS_OIL_RATIO"
     # DATEPRD,WELL_BORE_CODE,ON_STREAM_HRS,AVG_DOWNHOLE_PRESSURE,AVG_DP_TUBING,AVG_WHP_P,AVG_WHT_P,DP_CHOKE_SIZE,BORE_OIL_VOL,BORE_GAS_VOL,BORE_WAT_VOL,BORE_WI_VOL,FLOW_KIND
     
-# create new column on production data csv
+# create new column moving average on production data csv
 def create_moving_avg_column(df: pd.DataFrame, column_name: str, days: Optional[int] = None, ) -> pd.DataFrame:
     if days is None:
         days = 14
     
     df[ProductionDataSchema.MOVING_AVERAGE] = df[column_name].rolling(days).mean()
     return df[ProductionDataSchema.MOVING_AVERAGE]
+
+# create new column water cut daily
+def create_water_cut_column(df: pd.DataFrame) -> pd.DataFrame:
+    df[ProductionDataSchema.WATER_CUT_DAILY] = (df[ProductionDataSchema.BORE_WAT_VOL] / (df[ProductionDataSchema.BORE_OIL_VOL] + df[ProductionDataSchema.BORE_GAS_VOL] + df[ProductionDataSchema.BORE_WAT_VOL])) * 100
+    return df[ProductionDataSchema.WATER_CUT_DAILY]
+
+# create new column gas oil ratio
+def create_gor_column(df: pd.DataFrame) -> pd.DataFrame:
+    df[ProductionDataSchema.GAS_OIL_RATIO] = df[ProductionDataSchema.BORE_GAS_VOL] / df[ProductionDataSchema.BORE_OIL_VOL]
+    return df[ProductionDataSchema.GAS_OIL_RATIO]
 
 def load_well_production_data(path: str) -> pd.DataFrame:
     
@@ -96,6 +108,8 @@ def load_well_production_data(path: str) -> pd.DataFrame:
     )
     production_data[ProductionDataSchema.MOVING_AVERAGE_OIL] = create_moving_avg_column(production_data, ProductionDataSchema.BORE_OIL_VOL)
     production_data[ProductionDataSchema.MOVING_AVERAGE_WI] = create_moving_avg_column(production_data, ProductionDataSchema.BORE_WI_VOL)
+    production_data[ProductionDataSchema.WATER_CUT_DAILY] = create_water_cut_column(production_data)
+    production_data[ProductionDataSchema.GAS_OIL_RATIO] = create_gor_column(production_data)
     # production_data[ProductionDataSchema]
     
     return production_data

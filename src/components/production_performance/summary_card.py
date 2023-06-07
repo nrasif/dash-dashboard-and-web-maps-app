@@ -4,7 +4,7 @@ from dash.dependencies import Input, Output
 from dash_iconify import DashIconify
 
 from ...data.source import DataSource
-from .. import ids
+from .. import ids, cns
 
 def render(app: Dash, source: DataSource) -> html.Div:
     
@@ -41,20 +41,26 @@ def render(app: Dash, source: DataSource) -> html.Div:
     return html.Div(
         
         html.Div(
+            className=cns.PPD_SUMMARY_CARD_LEFT_GRID,
             children=[
                 dmc.CardSection(
+                    className=cns.PPD_SC_CARD_LEFT_GRID,
                     children=[
                         
                         dmc.SimpleGrid(
+                            className=cns.PPD_SC_SIMPLEGRID_LEFT_GRID,
                             cols=4,
                             children=[
                                 
                                 dmc.Group(
+                                    className=cns.PPD_SC_GROUP_LEFT_GRID,
                                     children=[
                                         dmc.Card(
+                                            className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
                                                 dmc.Title(
-                                                    f"Total Oil Production (Sm3)", 
+                                                    f"Total Oil Production (Sm3)",
+                                                    className=cns.PPD_SC_TITLE_LEFT_GRID,
                                                     order=4, 
                                                     align='center',
                                                     color='white',
@@ -64,7 +70,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Text(
                                                     # "11.0M",
                                                     id=ids.TOTAL_OIL_PRODUCTION_AMOUNT_CARD,
-                                                    className="",
+                                                    className=cns.PPD_SC_TEXT_LEFT_GRID,
                                                     weight=600,
                                                     align='center',
                                                     color='white',
@@ -81,11 +87,14 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                 ),
                                 
                                 dmc.Group(
+                                    className=cns.PPD_SC_GROUP_LEFT_GRID,
                                     children=[
                                         dmc.Card(
+                                            className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
                                                 dmc.Title(
                                                     f"Total Gas Production (Sm3)",
+                                                    className=cns.PPD_SC_TITLE_LEFT_GRID,
                                                     order=4, 
                                                     align='center',
                                                     color='white',
@@ -95,7 +104,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Text(
                                                     # "1,234.5M",
                                                     id=ids.TOTAL_GAS_PRODUCTION_AMOUNT_CARD,
-                                                    className="",
+                                                    className=cns.PPD_SC_TEXT_LEFT_GRID,
                                                     weight=600,
                                                     align='center',
                                                     color='white',
@@ -112,11 +121,14 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                 ),
                                 
                                 dmc.Group(
+                                    className=cns.PPD_SC_GROUP_LEFT_GRID,
                                     children=[
                                         dmc.Card(
+                                            className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
                                                 dmc.Title(
                                                     f"Total Water Injection (Sm3)",
+                                                    className=cns.PPD_SC_TITLE_LEFT_GRID,
                                                     order=4, 
                                                     align='center',
                                                     color='white',
@@ -126,7 +138,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Text(
                                                     # "54.3M",
                                                     id=ids.TOTAL_WATER_INJECTION_AMOUNT_CARD,
-                                                    className="",
+                                                    className=cns.PPD_SC_TEXT_LEFT_GRID,
                                                     weight=600,
                                                     align='center',
                                                     color='white',
@@ -143,11 +155,14 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                 ),
                                 
                                 dmc.Group(
+                                    className=cns.PPD_SC_GROUP_LEFT_GRID,
                                     children=[
                                         dmc.Card(
+                                            className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
                                                 dmc.Title(
                                                     f"Total On Stream Time (Hours)",
+                                                    className=cns.PPD_SC_TITLE_LEFT_GRID,
                                                     order=4, 
                                                     align='center',
                                                     color='white',
@@ -157,7 +172,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Text(
                                                     # "321K",
                                                     id=ids.ON_STREAM_TIME_AMOUNT_CARD,
-                                                    className="",
+                                                    className=cns.PPD_SC_TEXT_LEFT_GRID,
                                                     weight=600,
                                                     align='center',
                                                     color='white',
@@ -181,5 +196,5 @@ def render(app: Dash, source: DataSource) -> html.Div:
             ]
         ),
         # style={'display': 'grid', 'grid-template-columns': '1fr 1fr 1fr 1fr', 'grid-template-rows': 'auto'},
-    
+        className=cns.PPD_SUMMARY_CARD_LEFT_GRID,
     )

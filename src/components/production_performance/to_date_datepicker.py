@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output
 # from ...data.loader import ProductionDataSchema
 from ...data.source import DataSource 
 
-from .. import ids
+from .. import ids, cns
 
 def render(app: Dash, source: DataSource) -> html.Div:
     
@@ -23,12 +23,13 @@ def render(app: Dash, source: DataSource) -> html.Div:
             pass
             
     return html.Div(
+        className=cns.PPD_TO_DATE_PICKER_WRAPPER,
         children=[
             html.H5("To:"),
             
             dmc.DatePicker(
                 id=ids.TO_DATE_DATEPICKER,
-                className="",
+                className=cns.PPD_TO_DATE_PICKER_DATEPICKER,
                 value=source.latest_date,
                 dropdownPosition='flip',
                 initialLevel='year',
@@ -37,7 +38,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
 
             dmc.Checkbox(
                 id=ids.ALL_DATES_AFTER_CHECKBOX,
-                className="",
+                className=cns.PPD_TO_DATE_PICKER_BUTTON,
                 label='Select the latest date',
                 checked=True,
                 value=source.latest_date,

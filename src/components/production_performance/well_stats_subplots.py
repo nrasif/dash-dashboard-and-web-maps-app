@@ -10,7 +10,7 @@ from plotly.subplots import make_subplots
 
 from ...data.loader import ProductionDataSchema
 from ...data.source import DataSource
-from .. import ids
+from .. import ids, cns
 
 def render(app: Dash, source: DataSource) -> html.Div:
     @app.callback(
@@ -143,6 +143,6 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 row=3, col=2,
             )
 
-        return html.Div(dcc.Graph(figure=figure), id=ids.WELL_STATS_SUBPLOTS)
+        return html.Div(dcc.Graph(figure=figure), id=ids.WELL_STATS_SUBPLOTS, className=cns.PPD_FIRST_CHART_RIGHT_GRID)
 
-    return html.Div(id=ids.WELL_STATS_SUBPLOTS)
+    return html.Div(id=ids.WELL_STATS_SUBPLOTS, className=cns.PPD_FIRST_CHART_RIGHT_GRID)
