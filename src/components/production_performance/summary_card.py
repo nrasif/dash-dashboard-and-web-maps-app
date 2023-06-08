@@ -55,18 +55,37 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                 dmc.Group(
                                     className=cns.PPD_SC_GROUP_LEFT_GRID,
                                     children=[
+                                        
+                                        
                                         dmc.Card(
                                             className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
+                                                
+                                                DashIconify(
+                                                    className=cns.PPD_SC_ICON_LEFT_GRID,
+                                                    icon="fa6-solid:gas-pump", 
+                                                    color="white", 
+                                                    height=40,
+                                                    width=40,
+                                                    style={
+                                                        "marginTop":5,
+                                                        "marginRight":5,
+                                                        "float":"left"
+                                                        }
+                                                    ),
+                                                
                                                 dmc.Title(
                                                     f"Total Oil Production (Sm3)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    order=4, 
-                                                    align='center',
+                                                    order=5, 
+                                                    align='left',
                                                     color='white',
                                                     # color='red',
-                                                    style={},
+                                                    style={
+                                                        "marginLeft":10,
+                                                        },
                                                 ),
+                                                
                                                 dmc.Text(
                                                     # "11.0M",
                                                     id=ids.TOTAL_OIL_PRODUCTION_AMOUNT_CARD,
@@ -92,11 +111,25 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                         dmc.Card(
                                             className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
+                                                
+                                                DashIconify(
+                                                    className=cns.PPD_SC_ICON_LEFT_GRID,
+                                                    icon="mdi:gas", 
+                                                    color="white", 
+                                                    height=40,
+                                                    width=40,
+                                                    style={
+                                                        "marginTop":5,
+                                                        "marginRight":5,
+                                                        "float":"left"
+                                                        }
+                                                    ),
+                                                
                                                 dmc.Title(
                                                     f"Total Gas Production (Sm3)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    order=4, 
-                                                    align='center',
+                                                    order=5, 
+                                                    align='left',
                                                     color='white',
                                                     # color='yellow',
                                                     style={},
@@ -126,11 +159,25 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                         dmc.Card(
                                             className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
+                                                
+                                                DashIconify(
+                                                    className=cns.PPD_SC_ICON_LEFT_GRID,
+                                                    icon="fluent:water-32-filled", 
+                                                    color="white", 
+                                                    height=40,
+                                                    width=40,
+                                                    style={
+                                                        "marginTop":5,
+                                                        "marginRight":5,
+                                                        "float":"left"
+                                                        }
+                                                    ),
+                                                
                                                 dmc.Title(
                                                     f"Total Water Injection (Sm3)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    order=4, 
-                                                    align='center',
+                                                    order=5, 
+                                                    align='left',
                                                     color='white',
                                                     # color='blue',
                                                     style={},
@@ -160,11 +207,25 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                         dmc.Card(
                                             className=cns.PPD_SC_CARD_LEFT_GRID,
                                             children=[
+                                                
+                                                DashIconify(
+                                                    className=cns.PPD_SC_ICON_LEFT_GRID,
+                                                    icon="mdi:timer-cog", 
+                                                    color="white", 
+                                                    height=40,
+                                                    width=40,
+                                                    style={
+                                                        "marginTop":5,
+                                                        "marginRight":5,
+                                                        "float":"left"
+                                                        }
+                                                    ),
+                                                
                                                 dmc.Title(
                                                     f"Total On Stream Time (Hours)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    order=4, 
-                                                    align='center',
+                                                    order=5, 
+                                                    align='left',
                                                     color='white',
                                                     # color='black',
                                                     style={},

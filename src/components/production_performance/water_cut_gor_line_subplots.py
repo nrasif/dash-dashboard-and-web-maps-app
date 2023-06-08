@@ -36,7 +36,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 x=filtered_pt_cum_wc_date[ProductionDataSchema.DATE], 
                 y=filtered_pt_cum_wc_date[ProductionDataSchema.WATER_CUT_DAILY],
                 name='Water Cut', 
-                line=dict(color='blue')
+                line=dict(color='darkgreen')
                 ),
                 secondary_y=False
         )
@@ -47,20 +47,39 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 x=filtered_pt_cum_gor_date[ProductionDataSchema.DATE], 
                 y=filtered_pt_cum_gor_date[ProductionDataSchema.GAS_OIL_RATIO],
                 name='GOR', 
-                line=dict(color='red')
+                line=dict(color='palevioletred')
                 ),
                 secondary_y=True
         )
 
         # Set y-axis titles
-        fig.update_yaxes(title_text="Water Cut (%)", secondary_y=False, range=[-0.5, 10])
-        fig.update_yaxes(title_text="GOR (m3/m3)", secondary_y=True, range=[-0.5, 300])
+        fig.update_yaxes(title_text="Water Cut (%)", secondary_y=False, range=[-0.5, 10],
+                         title_font_size=12,)
+        fig.update_yaxes(title_text="GOR (m3/m3)", secondary_y=True, range=[-0.5, 300],
+                         title_font_size=12,)
 
         # Set chart title
         fig.update_layout(
             # title='Daily Water Cut and GOR',
             xaxis_title='Date'
         )
+        
+        fig.update_layout(
+            height=300,
+            autosize=True,  # Allow the figure to be autosized
+            margin=dict(l=10, r=10, t=10, b=10),  # Adjust the margins for the figure
+            legend=dict(
+                x=0.85,   # Set the x position of the legend (0.5 means centered horizontally)
+                y=1.0,   # Set the y position of the legend (1.0 means at the top)
+                xanchor='center',  # Anchor point for the x position ('center' for center alignment)
+                yanchor='top',     # Anchor point for the y position ('top' for top alignment)
+                orientation='h',   # Orientation of the legend ('h' for horizontal)
+                bgcolor='rgba(255, 255, 255, 0.5)',  # Background color of the legend (with transparency)
+                # bordercolor='rgba(0, 0, 0, 0.5)',     # Border color of the legend (with transparency)
+                # borderwidth=1       # Border width of the legend
+            )
+        )
+        
         
         return html.Div(dcc.Graph(figure=fig), id=ids.WATER_CUT_GOR_SUBPLOTS, className=cns.PPD_THIRD_CHART_RIGHT_GRID)
 

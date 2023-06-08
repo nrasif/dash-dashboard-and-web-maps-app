@@ -15,6 +15,7 @@ from src.components.production_performance import (
     
     summary_card,
     oil_rate_line_chart,
+    forecasting_oil_rate_line_chart,
     well_stats_subplots,
     water_injection_subplots,
     water_cut_gor_line_subplots,
@@ -86,6 +87,8 @@ def create_layout(app: Dash, source: DataSource) -> html.Div:
                                     oil_rate_line_chart.render(app, source),
                                     
                                     html.H2("Forecasting Oil Production Rate", className=cns.PPD_H2, style={"marginTop":30, "text-align": "center"}),
+                                    
+                                    forecasting_oil_rate_line_chart.render(app, source),
                                 
                                 ],
                                 style={'padding': 5, 'flex': 1},

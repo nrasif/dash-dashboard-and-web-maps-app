@@ -73,20 +73,24 @@ def render(app: Dash, source: DataSource) -> html.Div:
         )
         
         # Set y-axis titles
-        figure.update_yaxes(title_text="Total Pressure (Pa)")
-        # figure.update_layout(
-        #     template="plotly_dark",
-        #     margin=dict(r=10, t=25, b=40, l=60),
-        #     annotations=[
-        #         dict(
-        #             text="Source: NOAA",
-        #             showarrow=False,
-        #             xref="paper",
-        #             yref="paper",
-        #             x=0,
-        #             y=0)
-        #     ]
-        # )
+        figure.update_yaxes(title_text="Total Pressure (Pa)",
+                            title_font_size=12,)
+        
+        figure.update_layout(
+            height=200,
+            autosize=True,  # Allow the figure to be autosized
+            margin=dict(l=10, r=10, t=40, b=10),  # Adjust the margins for the figure
+            legend=dict(
+                x=0.775,   # Set the x position of the legend (0.5 means centered horizontally)
+                y=1.15,   # Set the y position of the legend (1.0 means at the top)
+                xanchor='center',  # Anchor point for the x position ('center' for center alignment)
+                yanchor='top',     # Anchor point for the y position ('top' for top alignment)
+                orientation='h',   # Orientation of the legend ('h' for horizontal)
+                bgcolor='rgba(255, 255, 255, 0.5)',  # Background color of the legend (with transparency)
+                # bordercolor='rgba(0, 0, 0, 0.5)',     # Border color of the legend (with transparency)
+                # borderwidth=1       # Border width of the legend
+            ),
+        )
 
         return html.Div(dcc.Graph(figure=figure), id=ids.DP_CS_VS_AVG_DP_SUBPLOTS, className=cns.PPD_FIFTH_CHART_RIGHT_GRID)
 
