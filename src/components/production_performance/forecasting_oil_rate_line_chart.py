@@ -19,7 +19,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
             Input(ids.FROM_DATE_DATEPICKER,  "value"),
             Input(ids.TO_DATE_DATEPICKER,    "value"),
             Input(ids.WELL_MAIN_MULTISELECT, "value"),
-        ],  prevent_inital_call=True
+        ],  prevent_initial_call=True
     )
     
     def update_line_chart(from_date: str, to_date: str, wells: list[str]) -> html.Div:

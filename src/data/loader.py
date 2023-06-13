@@ -149,3 +149,4 @@ def load_well_production_data_monthly(path: str) -> pd.DataFrame:
     )
     
     return production_data_monthly
+

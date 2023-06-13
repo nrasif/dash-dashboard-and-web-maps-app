@@ -14,7 +14,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         Output(ids.FROM_DATE_DATEPICKER, "value", allow_duplicate=True),
         [
             Input(ids.ALL_DATES_BEFORE_CHECKBOX, "checked")
-        ], prevent_inital_call=True
+        ], prevent_initial_call=True
     )
     
     def select_earliest_date(checked: bool) -> str:

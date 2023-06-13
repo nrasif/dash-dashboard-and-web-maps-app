@@ -13,7 +13,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         Output(ids.TO_DATE_DATEPICKER, "value", allow_duplicate=True),
         [
             Input(ids.ALL_DATES_AFTER_CHECKBOX, "checked")
-        ], prevent_inital_call=True
+        ], prevent_initial_call=True
     )
     
     def select_latest_date(checked: bool) -> str:
