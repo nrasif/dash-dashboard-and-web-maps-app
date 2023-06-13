@@ -9,10 +9,10 @@ from .. import ids, cns
 def render(app: Dash, source: DataSource) -> html.Div:
     
     @app.callback(
-        Output(ids.TOTAL_OIL_PRODUCTION_AMOUNT_CARD, "children", allow_duplicate=True),
-        Output(ids.TOTAL_GAS_PRODUCTION_AMOUNT_CARD, "children", allow_duplicate=True),
-        Output(ids.TOTAL_WATER_INJECTION_AMOUNT_CARD, "children", allow_duplicate=True),
-        Output(ids.ON_STREAM_TIME_AMOUNT_CARD, "children", allow_duplicate=True),
+        Output(ids.TOTAL_OIL_PRODUCTION_AMOUNT_CARD, "children"),
+        Output(ids.TOTAL_GAS_PRODUCTION_AMOUNT_CARD, "children"),
+        Output(ids.TOTAL_WATER_INJECTION_AMOUNT_CARD, "children"),
+        Output(ids.ON_STREAM_TIME_AMOUNT_CARD, "children"),
         [
             Input(ids.FROM_DATE_DATEPICKER,  "value"),
             Input(ids.TO_DATE_DATEPICKER,    "value"),

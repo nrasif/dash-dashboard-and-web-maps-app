@@ -10,7 +10,7 @@ from .. import ids, cns
 def render(app: Dash, source: DataSource) -> html.Div:
     
     @app.callback(
-        Output(ids.TO_DATE_DATEPICKER, "value", allow_duplicate=True),
+        Output(ids.TO_DATE_DATEPICKER, "value"),
         [
             Input(ids.ALL_DATES_AFTER_CHECKBOX, "checked")
         ], prevent_initial_call=True

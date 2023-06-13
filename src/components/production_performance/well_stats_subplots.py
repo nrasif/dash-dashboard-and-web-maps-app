@@ -14,7 +14,7 @@ from .. import ids, cns
 
 def render(app: Dash, source: DataSource) -> html.Div:
     @app.callback(
-        Output(ids.WELL_STATS_SUBPLOTS, "children", allow_duplicate=True),
+        Output(ids.WELL_STATS_SUBPLOTS, "children"),
         [
             Input(ids.FROM_DATE_DATEPICKER,  "value"),
             Input(ids.TO_DATE_DATEPICKER,    "value"),
