@@ -2,9 +2,60 @@
 from typing import Callable, Optional
 
 import pandas as pd
+import geopandas as gpd
 
 # Preprocessor = Callable[[pd.DataFrame], pd.DataFrame]
 
+
+class allBLOCKS:
+    BLOCK_NAME = 'name'
+    STATUS_BLOCK = 'status'
+    OPERATOR_BLOCK = 'operator'
+    TOTAL_WELL = 'num_well'
+    AREA_BLOCK = 'sq_km'
+    RESERVE_BLOCK = 'reserve'
+    GEOMETRY_BLOCK = 'geometry'
+    
+def load_all_blocks(path: str) -> gpd.GeoDataFrame:
+    
+    all_blocks = gpd.read_file(
+        path,
+        dtype={
+            allBLOCKS.BLOCK_NAME: str,
+            allBLOCKS.STATUS_BLOCK: str,
+            allBLOCKS.OPERATOR_BLOCK: str,
+            allBLOCKS.TOTAL_WELL: int,
+            allBLOCKS.AREA_BLOCK: float,
+            allBLOCKS.RESERVE_BLOCK: float,
+            allBLOCKS.GEOMETRY_BLOCK: str,
+        }
+    )
+    
+    return all_blocks
+
+class allWELLS:
+    WELLBORE = 'name'
+    ORIENTATION_WELL = 'orient'
+    STATUS_WELL = 'status'
+    PURPOSE_WELL = 'purpose'
+    TYPE_WELL = 'type'
+    GEOMETRY_WELL = 'geometry'
+
+def load_all_wells(path: str) -> gpd.GeoDataFrame:
+    
+    all_wells = gpd.read_file(
+        path,
+        dtype={
+            allWELLS.WELLBORE_WELL: str,
+            allWELLS.ORIENTATION_WELL: str,
+            allWELLS.STATUS_WELL: str,
+            allWELLS.PURPOSE_WELL: str,
+            allWELLS.TYPE_WELL: str,
+            allWELLS.GEOMETRY_WELL: str,
+        }
+    )
+    
+    return all_wells
 
 class LogDataSchema:
     WELLBORE = "WELL_BORE_CODE"

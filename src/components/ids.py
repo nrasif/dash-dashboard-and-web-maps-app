@@ -1,4 +1,22 @@
+# Map Apps
+# filtering tools
+MAP_COLOR = 'map-color'
 
+BLOCK_NAME_MULTISELECT = 'block-name-multiselect'
+STATUS_BLOCK_CHECKBOX = 'status-block-checkbox'
+OPERATOR_BLOCK_MULTISELECT = 'operator-block-multiselect'
+NUMBER_OF_WELL_SLIDER = 'number-of-well-slider'
+SHAPE_AREA_SLIDER = 'shape-area-slider'
+RESERVE_SLIDER = 'reserve-slider'
+
+RESTART_FILTER_MAP = 'restart-map'
+
+# maps
+MAP_LAYOUT = 'map-layout'
+
+# ----------------------------------------------------------------
+
+# Production
 # filtering tools
 FROM_DATE_DATEPICKER = "from-date-datepicker"
 ALL_DATES_BEFORE_CHECKBOX = "all-dates-before-checkbox"
@@ -38,3 +56,11 @@ OIL_VS_WATER_SUBPLOTS = "oil-vs-water-subplots"
 
 # dp choke size vs avg dp subplots
 DP_CS_VS_AVG_DP_SUBPLOTS = "dp-cs-vs-avg-dp-subplots"
+
+# ----------------------------------------------------------------
+# untuk CSS
+
+FROM_TO_DATEPICKER_TOGETHER = 'from-to-datepicker-together'
+FROM_DATEPICKER_LAYOUT = 'from-datepicker-layout'
+TO_DATEPICKER_LAYOUT = 'to-datepicker-layout'
+ICON_TITLE_SUMMARY_TOGETHER = 'icon-title-summary-together'

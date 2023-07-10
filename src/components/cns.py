@@ -7,11 +7,42 @@ PPD_H5 = "ppd-h5"
 ########################################################################
 
 # on web_layout.py
-# main div for the production performance dashboard
-PPD_LAYOUT = "ppd-layout"
 
-# div header
-PPD_HEADER = "ppd-header"
+# main div for  all web
+WEB_CONTAINER = "web-container"
+NAVBAR = 'navbar'
+
+# div production
+PPD_PRODUCTION_ALL = "ppd-production-all"
+
+# div web maps
+MAP_ALL = 'map-all'
+
+# div footer
+FOOTER_WEB = 'footer-web'
+
+########################################################################
+
+# on web_maps_layout.py
+
+MAP_ALL_WRAPPER = 'map-all-wrapper'
+
+# left side map
+LEFT_SIDE_MAP = 'left-side-map'
+# Consist of :
+# Text title and summary
+TITLE_SUMMARY_LAYOUT = 'title-summary-layout'
+TITLE_BLOCK = 'title-block'
+SUMMARY_BLOCK = 'summary-block'
+
+# Filter map
+MAP_ALL_FILTER = 'map-all-filter'
+# Map Leaflet
+MAP_LEAFLET = 'map-leaflet'
+
+########################################################################
+
+# div page
 PPD_TITLE = "ppd-title"
 PPD_SUMMARY = "ppd-summary"
 PPD_TABS = "ppd-tabs"
@@ -24,19 +55,16 @@ PPD_TABSPANEL = "ppd-tabspanel"
 # div main wrapper
 PPD_MAIN_WRAPPER = "ppd-main-wrapper"
 
-# div main on left grid
-PPD_MAIN_LEFT_GRID = "ppd-main-left-grid"
-# div on filter
-PPD_FILTER_WRAPPER = "ppd-filter-wrapper"
-PPD_FILTER = "ppd-filter"
+# div filter on left
+PPD_PRODUCTION_FILTER = "ppd-production-filter"
 
-# div on left grid chart
-PPD_CHARTS_LEFT_GRID = "ppd-charts-left-grid"
+PPD_ACCORDION_FILTER = "ppd-accordion-filter"
 
 # div main on right grid
-PPD_MAIN_RIGHT_GRID = "ppd-main-right-grid"
+PPD_MAIN_GRAPHS = "ppd-main-graphs"
 
 ########################################################################
+
 # parts of filter
 # on well_main_multiselect.py
 PPD_MULTISELECT_WRAPPER = "ppd-multiselect-wrapper"

@@ -12,6 +12,165 @@ html{
 }
 
 body {
-    background: #ffffff;
+    background: #ffff;
     color: #112D4E;
+}
+
+.web-container {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    gap: 10px;
+}
+
+.navbar, .map-leaflet, .ppd-production-filter, .ppd-main-graphs, .footer-web {
+    /* border: 3px solid black; */
+}
+
+/* LEFT SIDE MAP (FILTER MAP) */
+
+.left-side-map {
+    padding: 20px 80px 80px;
+}
+
+.title-summary-layout h4 {
+    width: 95%;
+    margin-top: 30px;
+    font-size: 18px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.title-block {
+    width: 95%;
+    color: #3F72AF;
+    font-size: 44px;
+    font-family: 'Ubuntu', sans-serif;
+    margin-left: -3px;
+    padding: 0;
+}
+
+
+.summary-block {
+    width: 95%;
+    padding-top: 10px;
+    line-height: 10px;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.map-all-filter .ppd-production-filter {
+    margin: auto;
+    padding-bottom: 20px;
+}
+
+/* Production filter right side graphs */
+.ppd-production-filter{
+    padding: 20px 80px 80px;
+}
+
+.ppd-main-graphs{
+    padding: 40px 0px 40px 40px;
+}
+
+#from-datepicker-layout, #to-datepicker-layout{
+    display: inline-table;
+}
+
+.ppd-accordion-filter{
+    margin-top: 40px;
+}
+
+.ppd-to-date-picker-wrapper{
+    margin-left: 20px;
+}
+
+.ppd-sc-group-left-grid{
+    display: inline-block;
+}
+
+.ppd-sc-card-left-grid {
+    height: 100%;
+    width: 100%;
+}
+
+
+@media (min-width: 768px) {
+
+    .web-container {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: 100px 1200px 1500px 400px 2500px 100px;
+    }
+
+    .web-container .navbar {
+        grid-column: 1/13;
+    }
+
+    .web-container .left-side-map {
+        grid-column: 1/13;
+    }
+
+    .web-container .map-leaflet {
+        grid-column: 1/13;
+    }
+
+    .web-container .ppd-production-filter {
+        grid-column: 1/13;
+    }
+
+    .web-container .ppd-main-graphs {
+        grid-column: 1/13;
+    }
+
+    .web-container .footer-web {
+        grid-column: 1/13;
+    }
+
+    .ppd-to-date-picker-wrapper{
+        margin-left: 0px;
+    }
+
+}
+
+@media (min-width: 1080px){
+
+    .web-container {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: 50px 1500px 2500px 100px;
+    }
+
+    .web-container .navbar {
+        grid-column: 1/13;
+    }
+
+    .web-container .left-side-map {
+        grid-column: 1/5;
+    }
+
+    .web-container .map-leaflet {
+        grid-column: 5/13;
+    }
+
+    .web-container .ppd-main-graphs {
+        grid-column: 1/9;
+        grid-row: 3/4;
+    }
+
+    .web-container .ppd-production-filter {
+        grid-column: 9/13;
+        grid-row: 3/4;
+    }
+
+    .web-container .footer-web {
+        grid-column: 1/13;
+        grid-row: 4/6;
+    }
+
+}
+
+/* Mantine styles API */
+
+.mantine-Spoiler-control{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    text-align: justify;
 }

@@ -3,15 +3,63 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 from datetime import datetime, date
+import json
 
 import pandas as pd
-from .loader import ProductionDataSchema
+import geopandas as gpd
+
+from .loader import ProductionDataSchema, allBLOCKS
 
 @dataclass
 class DataSource:
-    _data: pd.DataFrame
+    _data: Optional[pd.DataFrame] = None
+    _geodata_blocks: Optional[gpd.GeoDataFrame] = None
     
-    # main filter
+    # main filter map
+    def filter_block(
+        self,
+        name_block: Optional[list[str]] = None,
+        status_block: Optional[list[str]] = None,
+        operator_block: Optional[list[str]] = None,
+        total_wellMin: Optional[int] = None,
+        total_wellMax: Optional[int] = None,
+        sq_kmMin: Optional[float] = None,
+        sq_kmMax: Optional[float] = None,
+        reserveMin: Optional[float] = None,
+        reserveMax: Optional[float] = None
+        
+    ) -> DataSource:
+        
+        if name_block is None:
+            name_block = self.all_name_blocks
+        if status_block is None:
+            status_block = self.all_status_block
+        if operator_block is None:
+            operator_block = self.all_operator_block
+        if total_wellMin is None:
+            total_wellMin = self.minimum_total_well
+        if total_wellMax is None:
+            total_wellMax = self.maximum_total_well
+        if sq_kmMin is None:
+            sq_kmMin = self.minimum_area_km
+        if sq_kmMax is None:
+            sq_kmMax = self.maximum_area_km
+        if reserveMin is None:
+            reserveMin = self.minimum_reserve
+        if reserveMax is None:
+            reserveMax = self.maximum_reserve
+        
+        filtered_block_data = self._geodata_blocks[
+            (self._geodata_blocks[allBLOCKS.BLOCK_NAME].isin(name_block))           &
+            (self._geodata_blocks[allBLOCKS.STATUS_BLOCK].isin(status_block))       &
+            (self._geodata_blocks[allBLOCKS.OPERATOR_BLOCK].isin(operator_block))   &
+            (self._geodata_blocks[allBLOCKS.TOTAL_WELL].between(total_wellMin, total_wellMax)) &
+            (self._geodata_blocks[allBLOCKS.AREA_BLOCK].between(sq_kmMin, sq_kmMax)) &
+            (self._geodata_blocks[allBLOCKS.RESERVE_BLOCK].between(reserveMin, reserveMax))
+        ]
+        return DataSource(filtered_block_data)
+    
+    # main filter productions
     def filter(
         self,
         from_date: Optional[str] = None,
@@ -124,9 +172,73 @@ class DataSource:
         dataframe = pd.DataFrame(self._data)
         return dataframe
     
-    # @property
-    # def to_datetime(self):
-    #     data
+    @property
+    def to_dataframe_geopandas(self):
+        dataframe_geo = gpd.GeoDataFrame(self._geodata_blocks)
+        return dataframe_geo
+    
+    @property #karena kegeser kalo cuma dimasukkin 1 dataframe
+    def to_dataframe_geopandas_temp(self):
+        dataframe_geo = gpd.GeoDataFrame(self._data)
+        return dataframe_geo
+
+    @property
+    def to_json_(self):
+        json_geo = self._geodata_blocks[allBLOCKS].to_json()
+        return json_geo
+    
+    #Map Utilization
+    @property
+    def all_name_blocks(self) -> list[str]:
+        return self._geodata_blocks[allBLOCKS.BLOCK_NAME].tolist()
+    
+    @property
+    def all_status_block(self) -> list[str]:
+        return self._geodata_blocks[allBLOCKS.STATUS_BLOCK].tolist()
+
+    @property
+    def unique_status(self) -> list[str]:
+        return sorted(set(self.all_status_block))
+    
+    @property
+    def all_operator_block(self) -> list[str]:
+        return self._geodata_blocks[allBLOCKS.OPERATOR_BLOCK].tolist()
+    
+    @property
+    def unique_operator(self) -> list[str]:
+        return sorted(set(self.all_operator_block))
+    
+    @property
+    def minimum_total_well(self) -> int:
+        return self._geodata_blocks[allBLOCKS.TOTAL_WELL].min()
+    
+    @property
+    def maximum_total_well(self) -> int:
+        return self._geodata_blocks[allBLOCKS.TOTAL_WELL].max()
+    
+    @property
+    def all_total_well(self) -> int:
+        return self._geodata_blocks[allBLOCKS.TOTAL_WELL]
+    
+    @property
+    def minimum_area_km(self) -> float:
+        return self._geodata_blocks[allBLOCKS.AREA_BLOCK].min()
+    
+    @property
+    def maximum_area_km(self) -> float:
+        return self._geodata_blocks[allBLOCKS.AREA_BLOCK].max()
+    
+    @property
+    def minimum_reserve(self) -> float:
+        return self._geodata_blocks[allBLOCKS.RESERVE_BLOCK].min()
+    
+    @property
+    def maximum_reserve(self) -> float:
+        return self._geodata_blocks[allBLOCKS.RESERVE_BLOCK].max()
+    
+    @property
+    def geometry_(self) -> str:
+        return self._geodata_blocks[allBLOCKS.GEOMETRY_BLOCK].tolist()
     
     @property
     def all_dates(self):

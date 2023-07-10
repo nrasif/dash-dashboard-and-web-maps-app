@@ -14,7 +14,7 @@ from .. import ids, cns
 
 def render(app: Dash, source: DataSource) -> html.Div:
     @app.callback(
-        Output(ids.OIL_RATE_LINE_CHART, "children", allow_duplicate=True),
+        Output(ids.OIL_RATE_LINE_CHART, "children"),
         [
             Input(ids.FROM_DATE_DATEPICKER,  "value"),
             Input(ids.TO_DATE_DATEPICKER,    "value"),

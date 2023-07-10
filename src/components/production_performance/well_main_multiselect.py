@@ -38,7 +38,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 searchable=True,
                 clearable=True,
                 nothingFound="No options available",
-                style={'width':450,'marginTop':'5px'}
+                style={'width':'98%','marginTop':'5px', 'paddingBottom':'20px'}
             ),
             dmc.Button(
                 'Select All',
@@ -48,7 +48,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 color="dark",
                 radius="5px",
                 leftIcon=DashIconify(icon='material-symbols:restart-alt', width=15),
-                style={'height':30, 'marginTop':'15px'},
+                style={'height':'30px','marginBottom':'15px'},
                 n_clicks=0,
             ),
             
