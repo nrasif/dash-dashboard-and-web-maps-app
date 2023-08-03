@@ -98,7 +98,7 @@ body {
 
     .web-container {
         grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: 100px 1200px 1500px 400px 2500px 100px;
+        grid-template-rows: 70px 1300px 1400px 400px 2500px 100px;
     }
 
     .web-container .navbar {
@@ -135,7 +135,7 @@ body {
 
     .web-container {
         grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: 50px 1500px 2500px 100px;
+        grid-template-rows: 70px 1500px 2500px 100px;
     }
 
     .web-container .navbar {

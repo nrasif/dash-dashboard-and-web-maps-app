@@ -24,6 +24,19 @@ def render(app: Dash, source: DataSource) -> html.Div:
     
     def update_subplots(from_date: str, to_date: str, wells: list[str]) -> html.Div:
         
+        if not wells:
+            empty_fig = make_subplots(rows=1, cols=1)
+            empty_fig.update_layout(
+                height=100,
+                title_text="No wells selected",
+                xaxis_title="Date",
+                yaxis_title="Total Vol.(Sm3)",
+                margin=dict(l=10, r=10, t=10, b=10),
+            )
+            return html.Div(dcc.Graph(figure=empty_fig), id=ids.OIL_VS_WATER_SUBPLOTS, className=cns.PPD_FOURTH_CHART_RIGHT_GRID)
+
+    # Rest of your code...
+        
         filtered_pt_oil_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date(ProductionDataSchema.BORE_OIL_VOL)
         filtered_pt_wtr_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date(ProductionDataSchema.BORE_WAT_VOL)
 
@@ -77,6 +90,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                             title_font_size=12,)
         
         figure.update_layout(
+            template='plotly_white',
             height=200,
             autosize=True,  # Allow the figure to be autosized
             margin=dict(l=10, r=10, t=60, b=10),  # Adjust the margins for the figure

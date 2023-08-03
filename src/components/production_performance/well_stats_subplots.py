@@ -24,6 +24,11 @@ def render(app: Dash, source: DataSource) -> html.Div:
     
     def update_subplots(from_date: str, to_date: str, wells: list[str]) -> html.Div:
         
+        if not wells:
+            empty_fig = make_subplots(rows=1, cols=1)
+            empty_fig.update_layout(height=800, title_text="No wells selected")
+            return html.Div(dcc.Graph(figure=empty_fig), id=ids.WELL_STATS_SUBPLOTS, className=cns.PPD_FIRST_CHART_RIGHT_GRID)
+        
         filtered_pt_cum_oil_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date(ProductionDataSchema.BORE_OIL_VOL)
         filtered_pt_cum_oil_well = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_well(ProductionDataSchema.BORE_OIL_VOL)
         
@@ -37,23 +42,23 @@ def render(app: Dash, source: DataSource) -> html.Div:
         figure = make_subplots(
                     rows=3, cols=2,
                     column_widths=[0.7, 0.3],
-                    row_heights=[0.33, 0.33, 0.33],
+                    row_heights=[0.4, 0.4, 0.4],
                     specs=[
                         [{"type": "scatter"}, {"type": "pie"}],
                         [{"type": "scatter"}, {"type": "pie"}],
                         [{"type": "scatter"}, {"type": "pie"}],
-                    ]
+                    ],
                 )
         # Oil line chart and pie
         # Add Line
         figure.add_trace(
             go.Scatter(
-                name="BORE_OIL_VOL (m3) by Time",
+                name="Total Oil Vol by Time (m\u00b3)",
                 x=filtered_pt_cum_oil_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_oil_date[ProductionDataSchema.BORE_OIL_VOL],
                 mode='lines',
-                fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
-                line={'color': '#d93d04'},
+                fill='tozeroy',
+                line={'color': '#CC6677'},
                 showlegend=True,
                 legendrank=1,
                 ),
@@ -63,12 +68,12 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Pie
         figure.add_trace(
             go.Pie(
-                name="BORE_OIL_VOL (m3) by Well",
-                title_text="BORE_OIL_VOL (m3) by Well",
+                name="Total Oil Vol by Well (m\u00b3)",
+                title_text="<b>Total Oil Vol by Well (m\u00b3)</b>",
                 title_position="top center",
-                title_font_size=10,
-                text=filtered_pt_cum_oil_well[ProductionDataSchema.WELLBORE].to_list(),
-                textposition="inside",
+                title_font_size=12,
+                # text=filtered_pt_cum_oil_well[ProductionDataSchema.WELLBORE].to_list(),
+                # textposition="inside",
                 labels=filtered_pt_cum_oil_well[ProductionDataSchema.WELLBORE].to_list(),
                 values=filtered_pt_cum_oil_well[ProductionDataSchema.BORE_OIL_VOL].to_list(),
                 hole=0.5
@@ -83,12 +88,12 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Line
         figure.add_trace(
             go.Scatter(
-                name="BORE_GAS_VOL (m3) by Time",
+                name="Total Gas Vol by Time (m\u00b3)",
                 x=filtered_pt_cum_gas_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_gas_date[ProductionDataSchema.BORE_GAS_VOL],
                 mode='lines',
                 fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
-                line={'color': '#f2b705'},
+                line={'color': '#E3D691'},
                 showlegend=True,
                 legendrank=2,
                 
@@ -99,12 +104,12 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Pie
         figure.add_trace(
             go.Pie(
-                name="BORE_GAS_VOL (m3) by Well",
-                title_text="BORE_GAS_VOL (m3) by Well",
+                name="Total Gas Vol by Well (m\u00b3)",
+                title_text="<b>Total Gas Vol by Well (m\u00b3)</b>",
                 title_position="top center",
-                title_font_size=10,
-                text=filtered_pt_cum_gas_well[ProductionDataSchema.WELLBORE].to_list(),
-                textposition="inside",
+                title_font_size=12,
+                # text=filtered_pt_cum_gas_well[ProductionDataSchema.WELLBORE].to_list(),
+                # textposition="inside",
                 labels=filtered_pt_cum_gas_well[ProductionDataSchema.WELLBORE].to_list(),
                 values=filtered_pt_cum_gas_well[ProductionDataSchema.BORE_GAS_VOL].to_list(),
                 hole=0.5
@@ -119,12 +124,12 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Line
         figure.add_trace(
             go.Scatter(
-                name="BORE_WAT_VOL (m3) by Time",
+                name="Total Water Vol by Time (m\u00b3)",
                 x=filtered_pt_cum_water_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_water_date[ProductionDataSchema.BORE_WAT_VOL],
                 mode='lines',
-                fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
-                line={'color': '#03a6a6'},
+                # fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
+                line={'color': '#88CCEE'},
                 showlegend=True,
                 legendrank=3,
                 ),
@@ -133,14 +138,14 @@ def render(app: Dash, source: DataSource) -> html.Div:
         
         figure.add_trace(
             go.Scatter(
-                name="BORE_WI_VOL (m3) by Time",
+                name="Total Water Injection Vol by Time (m\u00b3)",
                 x=filtered_pt_cum_water_date[ProductionDataSchema.DATE],
                 y=filtered_pt_cum_water_date[ProductionDataSchema.BORE_WI_VOL],
                 mode='lines',
-                fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
-                fillpattern={'fillmode':'overlay', 'fgcolor':'rgb(3,166,166, 0.0001)'},
-                line={'color': '#03a6a6', 'width':0.1},
-                opacity=0.1,
+                # fill='tozeroy',  # Set fill to 'tozeroy' for area below the line
+                # fillpattern={'fillmode':'overlay', 'fgcolor':'rgb(3,166,166, 0.0001)'},
+                line={'color': '#6659A5'},
+                # opacity=1,
                 showlegend=True,
                 legendrank=4,
                 ),
@@ -150,12 +155,12 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Add Pie
         figure.add_trace(
             go.Pie(
-                name="BORE_WAT_VOL (m3) by Well",
-                title_text="BORE_WAT_VOL (m3) by Well",
+                name="Total Water Vol by Well (m\u00b3)",
+                title_text="<b>Total Water Vol by Well (m\u00b3)</b>",
                 title_position="top center",
-                title_font_size=10,
-                text=filtered_pt_cum_water_well[ProductionDataSchema.WELLBORE].to_list(),
-                textposition="inside",
+                title_font_size=12,
+                # text=filtered_pt_cum_water_well[ProductionDataSchema.WELLBORE].to_list(),
+                # textposition="inside",
                 labels=filtered_pt_cum_water_well[ProductionDataSchema.WELLBORE].to_list(),
                 values=filtered_pt_cum_water_well[ProductionDataSchema.BORE_WAT_VOL].to_list(),
                 hole=0.5,
@@ -164,19 +169,19 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 row=3, col=2,
             )
         
-        figure.update_yaxes(title_text="OIL_VOL (Sm3)",
-                            title_font_size=10,
+        figure.update_yaxes(title_text="Oil Volume (m\u00b3)",
+                            title_font_size=12,
                             row=1, col=1)
-        figure.update_yaxes(title_text="GAS_VOL (Sm3)",
-                            title_font_size=10,
+        figure.update_yaxes(title_text="Gas Volume (m\u00b3)",
+                            title_font_size=12,
                             row=2, col=1)
-        figure.update_yaxes(title_text="WAT + WI_VOL (Sm3)",
-                            title_font_size=10,
+        figure.update_yaxes(title_text="Water & Water Injection Vol (m\u00b3)",
+                            title_font_size=12,
                             row=3, col=1)
         figure.update_xaxes(title_text="Date", row=3, col= 1)
 
         figure.update_layout(
-            height=500,
+            height=800,
             autosize=True,  # Allow the figure to be autosized
             margin=dict(l=10, r=10, t=10, b=10),  # Adjust the margins for the figure
             legend=dict(
@@ -188,7 +193,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 bgcolor='rgba(255, 255, 255, 0.5)',  # Background color of the legend (with transparency)
                 # bordercolor='rgba(0, 0, 0, 0.5)',     # Border color of the legend (with transparency)
                 # borderwidth=1       # Border width of the legend
-            )
+            ),
+            template='plotly_white',
         )
 
         return html.Div(dcc.Graph(figure=figure), id=ids.WELL_STATS_SUBPLOTS, className=cns.PPD_FIRST_CHART_RIGHT_GRID)

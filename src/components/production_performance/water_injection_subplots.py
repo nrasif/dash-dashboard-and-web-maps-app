@@ -23,6 +23,20 @@ def render(app: Dash, source: DataSource) -> html.Div:
     )
     
     def update_subplots(from_date: str, to_date: str, wells: list[str]) -> html.Div:
+        
+        required_wells = ["Well-N2", "Well-W2"]
+        if not any(well in wells for well in required_wells):
+            # Create an empty figure
+            empty_fig = make_subplots(rows=1, cols=1)
+            empty_fig.update_layout(
+                height=300,
+                title_text="No valid wells selected",
+                xaxis_title="Date",
+                yaxis_title="WI_VOL (Sm3)",
+                margin=dict(l=10, r=10, t=10, b=10),
+            )
+            return html.Div(dcc.Graph(figure=empty_fig), id=ids.WATER_INJECTION_SUBPLOTS, className=cns.PPD_SECOND_CHART_RIGHT_GRID)
+    
         filtered_pt_wi_well = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_well(ProductionDataSchema.MOVING_AVERAGE_WI)
         pt_wi_well_nonull = filtered_pt_wi_well[filtered_pt_wi_well[ProductionDataSchema.MOVING_AVERAGE_WI] != 0]
         
@@ -44,8 +58,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
 
         figure.add_trace(
             go.Pie(
-                name="Cum Water Injection (m3) by Well",
-                title="Ratio of Daily Water Injection (Sm3) by Well",
+                name="Total Water Injection (m\u00b3) by Well",
+                title="<b>Ratio of Daily Water Injection (m\u00b3) by Well</b>",
                 text=pt_wi_well_nonull[ProductionDataSchema.WELLBORE].to_list(),
                 labels=pt_wi_well_nonull[ProductionDataSchema.WELLBORE].to_list(),
                 values=pt_wi_well_nonull[ProductionDataSchema.MOVING_AVERAGE_WI].to_list(),
@@ -59,7 +73,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # line chart for MA of Well-N2
         figure.add_trace(
             go.Scatter(
-                name="BORE_WI_VOL (Sm3) by Time (Well-N2)",
+                name="Water Injection (m\u00b3) by Time (Well-N2)",
                 x=pt_ma_wi_date_w1[ProductionDataSchema.DATE],
                 y=pt_ma_wi_date_w1[ProductionDataSchema.MOVING_AVERAGE_WI],
                 mode='lines',
@@ -74,7 +88,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # line chart for MA of Well-W2
         figure.add_trace(
             go.Scatter(
-                name="BORE_WI_VOL (Sm3) by Time (Well-W2)",
+                name="Water Injection (m\u00b3) by Time (Well-W2)",
                 x=pt_ma_wi_date_w2[ProductionDataSchema.DATE],
                 y=pt_ma_wi_date_w2[ProductionDataSchema.MOVING_AVERAGE_WI],
                 mode='lines',
@@ -93,6 +107,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         figure.update_xaxes(title_text="Date")
 
         figure.update_layout(
+            template='plotly_white',
             height=300,
             autosize=True,  # Allow the figure to be autosized
             margin=dict(l=10, r=10, t=10, b=10),  # Adjust the margins for the figure

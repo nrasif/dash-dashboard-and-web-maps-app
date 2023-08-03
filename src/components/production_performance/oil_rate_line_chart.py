@@ -23,6 +23,12 @@ def render(app: Dash, source: DataSource) -> html.Div:
     )
     
     def update_line_chart(from_date: str, to_date: str, wells: list[str]) -> html.Div:
+        if not wells:  # Check if the 'wells' list is empty
+            # If there are no wells selected, return an empty plot
+            empty_fig = px.line(labels={"MOVING_AVERAGE_OIL": "14-days Moving Average Oil (m3)", "DATEPRD": "Year", "WELL_BORE_CODE": "Wells"})
+            empty_fig.update_layout(template='plotly_white')
+            return html.Div(dcc.Graph(figure=empty_fig), id=ids.OIL_RATE_LINE_CHART, className=cns.PPD_FIRST_CHART_LEFT_GRID)
+        
         filtered_source_pt = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date_well_ma(ProductionDataSchema.MOVING_AVERAGE_OIL)
 #     #     if not filtered_source.row_count:
 #     #         return html.Div(i18n.t("general.no_data"), id=ids.BAR_CHART)
@@ -32,6 +38,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 x=ProductionDataSchema.DATE,
                 y=ProductionDataSchema.MOVING_AVERAGE_OIL,
                 color=ProductionDataSchema.WELLBORE,
+                color_discrete_sequence=px.colors.qualitative.Safe,
                 labels={
                     "MOVING_AVERAGE_OIL":"14-days Moving Average Oil (m3)",
                     "DATEPRD": "Year",
@@ -39,6 +46,8 @@ def render(app: Dash, source: DataSource) -> html.Div:
                 },
                 # style={}
             )
+        
+        fig.update_layout(template="plotly_white")
 
         return html.Div(dcc.Graph(figure=fig), id=ids.OIL_RATE_LINE_CHART, className=cns.PPD_FIRST_CHART_LEFT_GRID)
 

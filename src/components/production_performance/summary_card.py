@@ -63,7 +63,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 
                                                 DashIconify(
                                                     className=cns.PPD_SC_ICON_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     icon="fa6-solid:gas-pump",
                                                     color="white", 
                                                     height=40,
@@ -78,7 +78,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Title(
                                                     f"Total Oil Production (Sm3)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     order=5, 
                                                     align='left',
                                                     color='white',
@@ -116,7 +116,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 
                                                 DashIconify(
                                                     className=cns.PPD_SC_ICON_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     icon="mdi:gas", 
                                                     color="white", 
                                                     height=40,
@@ -131,7 +131,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Title(
                                                     f"Total Gas Production (Sm3)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     order=5, 
                                                     align='left',
                                                     color='white',
@@ -165,7 +165,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 
                                                 DashIconify(
                                                     className=cns.PPD_SC_ICON_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     icon="fluent:water-32-filled", 
                                                     color="white", 
                                                     height=40,
@@ -180,7 +180,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Title(
                                                     f"Total Water Injection (Sm3)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     order=5, 
                                                     align='left',
                                                     color='white',
@@ -214,7 +214,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 
                                                 DashIconify(
                                                     className=cns.PPD_SC_ICON_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     icon="mdi:timer-cog", 
                                                     color="white", 
                                                     height=40,
@@ -229,7 +229,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                                                 dmc.Title(
                                                     f"Total On Stream Time (Hours)",
                                                     className=cns.PPD_SC_TITLE_LEFT_GRID,
-                                                    id=ids.ICON_TITLE_SUMMARY_TOGETHER,
+                                                    # id=ids.ICON_TITLE_SUMMARY_TOGETHER,
                                                     order=5, 
                                                     align='left',
                                                     color='white',

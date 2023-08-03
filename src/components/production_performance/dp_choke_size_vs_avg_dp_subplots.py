@@ -24,6 +24,17 @@ def render(app: Dash, source: DataSource) -> html.Div:
     
     def update_subplots(from_date: str, to_date: str, wells: list[str]) -> html.Div:
         
+        if not wells:
+            empty_fig = make_subplots(rows=1, cols=1)
+            empty_fig.update_layout(
+                height=100,
+                title_text="No wells selected",
+                xaxis_title="Date",
+                yaxis_title="Total Pressure (Pa)",
+                margin=dict(l=10, r=10, t=10, b=10),
+            )
+            return html.Div(dcc.Graph(figure=empty_fig), id=ids.DP_CS_VS_AVG_DP_SUBPLOTS, className=cns.PPD_FIFTH_CHART_RIGHT_GRID)
+        
         filtered_pt_choke_size_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date(ProductionDataSchema.DP_CHOKE_SIZE)
         filtered_pt_avg_dp_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date(ProductionDataSchema.AVG_DOWNHOLE_PRESSURE)
         
@@ -41,7 +52,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # line chart for DP_CHOKE_SIZE
         figure.add_trace(
             go.Scatter(
-                name="Total DP_CHOKE_SIZE",
+                name="Total Downhole Pressure Choke Size",
                 x=filtered_pt_choke_size_date[ProductionDataSchema.DATE],
                 y=filtered_pt_choke_size_date[ProductionDataSchema.DP_CHOKE_SIZE],
                 mode='lines',
@@ -55,7 +66,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # line chart for AVG_DOWNHOLE_PRESSURE
         figure.add_trace(
             go.Scatter(
-                name="Total AVG_DOWNHOLE_PRESSURE",
+                name="Total Avg Downhole Pressure",
                 x=filtered_pt_avg_dp_date[ProductionDataSchema.DATE],
                 y=filtered_pt_avg_dp_date[ProductionDataSchema.AVG_DOWNHOLE_PRESSURE],
                 mode='lines',
@@ -68,7 +79,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
 
         # Set theme, margin, and annotation in layout
         figure.update_layout(
-            title='Downhole Pressure Choke Size and Average Downhole Pressure',
+            title='<b>Downhole Pressure Choke Size and Average Downhole Pressure</b>',
             xaxis_title='Date'
         )
         
@@ -77,6 +88,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
                             title_font_size=12,)
         
         figure.update_layout(
+            template='plotly_white',
             height=200,
             autosize=True,  # Allow the figure to be autosized
             margin=dict(l=10, r=10, t=40, b=10),  # Adjust the margins for the figure

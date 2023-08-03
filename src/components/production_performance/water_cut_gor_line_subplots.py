@@ -24,6 +24,19 @@ def render(app: Dash, source: DataSource) -> html.Div:
     
     def update_subplots(from_date: str, to_date: str, wells: list[str]) -> html.Div:
         
+        if not wells:
+            empty_fig = make_subplots(specs=[[{"secondary_y": True}]])
+            empty_fig.update_layout(
+                height=100,
+                title_text="No wells selected",
+                xaxis_title="Date",
+                yaxis_title="Water Cut (%)",
+                yaxis2_title="GOR (m3/m3)",
+                margin=dict(l=10, r=10, t=10, b=10),
+            )
+            return html.Div(dcc.Graph(figure=empty_fig), id=ids.WATER_CUT_GOR_SUBPLOTS, className=cns.PPD_THIRD_CHART_RIGHT_GRID)
+
+        
         filtered_pt_cum_wc_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date_avg(ProductionDataSchema.WATER_CUT_DAILY)
         filtered_pt_cum_gor_date = source.filter(from_date=from_date, to_date=to_date, wells=wells).create_pivot_table_date_avg(ProductionDataSchema.GAS_OIL_RATIO)
         
@@ -55,7 +68,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         # Set y-axis titles
         fig.update_yaxes(title_text="Water Cut (%)", secondary_y=False, range=[-0.5, 10],
                          title_font_size=12,)
-        fig.update_yaxes(title_text="GOR (m3/m3)", secondary_y=True, range=[-0.5, 300],
+        fig.update_yaxes(title_text="GOR (m\u00b3/m\u00b3)", secondary_y=True, range=[-0.5, 300],
                          title_font_size=12,)
 
         # Set chart title
@@ -65,6 +78,7 @@ def render(app: Dash, source: DataSource) -> html.Div:
         )
         
         fig.update_layout(
+            template='plotly_white',
             height=300,
             autosize=True,  # Allow the figure to be autosized
             margin=dict(l=10, r=10, t=10, b=10),  # Adjust the margins for the figure
